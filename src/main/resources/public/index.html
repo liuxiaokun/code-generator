@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>云朵软件-代码生成工具</title>
+    <!--<script src="../static/vue2.5.17.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="fred">
+    <form action="/gen/" method="get">
+        <input v-model="projectName" name="projectName" placeholder="请输入maven项目名"><br>
+        <input v-model="moduleName" name="moduleName" placeholder="请输入maven模块名"><br>
+        <p>即将生成的base package名字: com.cloudoer.{{projectName}}.{{moduleName}}</p>
+        <input v-model="host" name="host" placeholder="请输入数据库连接host"><br>
+        <input v-model="port" name="port" placeholder="请输入数据库连接port"><br>
+        <input v-model="username" name="username" placeholder="请输入数据库连接用户名"><br>
+        <input v-model="password" name="password" placeholder="请输入数据库连接密码"><br>
+        <input v-model="database" name="database" placeholder="请输入数据库连接实例名"><br>
+        <p>即将生成的query-string: jdbc:mysql://{{host}}:{{port}}/{{database}}?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</p>
+        <input type="text" name="tables" placeholder="填写要生成的表名，多个用英文逗号分隔"><br>
+        <button type="submit">生成并下载</button>
+    </form>
+</div>
+
+
+<script>
+    new Vue({
+        el: "#fred",
+
+        data: {
+            projectName: "bdp",
+            moduleName: "pom",
+            host: "192.168.1.11",
+            port: "3306",
+            username: "root",
+            password: "123456",
+            database: "bdp_pom",
+        }
+    })
+</script>
+</body>
+</html>

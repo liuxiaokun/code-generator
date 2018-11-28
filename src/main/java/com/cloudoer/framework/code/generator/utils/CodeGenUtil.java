@@ -1,9 +1,9 @@
 package com.cloudoer.framework.code.generator.utils;
 
-import com.cloudoer.framework.code.generator.config.Jdbc;
 import com.cloudoer.framework.code.generator.db.Column;
 import com.cloudoer.framework.code.generator.db.MysqlHelper;
 import com.cloudoer.framework.code.generator.db.Table;
+import com.cloudoer.framework.code.generator.dto.DownloadDTO;
 import com.cloudoer.framework.code.generator.enums.ClassType;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author liuxiaokun
@@ -21,9 +22,14 @@ import java.util.Map;
 @Slf4j
 public class CodeGenUtil {
 
-    public static void genCodes(String project, String module) throws Exception {
+    public static void genCodes(DownloadDTO downloadDTO) throws Exception {
 
-        List<Table> tables = MysqlHelper.getTables(new Jdbc());
+        String project = downloadDTO.getProjectName();
+        String module = downloadDTO.getModuleName();
+        List<String> needGenTables = downloadDTO.getTables();
+        List<Table> tables = MysqlHelper.getTables(downloadDTO);
+
+        tables = tables.stream().filter(item -> needGenTables.contains(item.getName())).collect(Collectors.toList());
 
         for (Table table : tables) {
             //生成Entity
@@ -31,8 +37,8 @@ public class CodeGenUtil {
             String tableComment = NameUtil.getTableComment(table);
             String entityNameFirstLower = NameUtil.genEntityClassName(false, true, table.getName());
 
-            StringBuffer entityFields = new StringBuffer();
-            StringBuffer dtoFields = new StringBuffer();
+            StringBuilder entityFields = new StringBuilder();
+            StringBuilder dtoFields = new StringBuilder();
             for (Column column : table.getColumns()) {
                 String entityField = column.getFieldSnippet(ClassType.ENTITY);
                 String dtoField = column.getFieldSnippet(ClassType.DTO);
@@ -95,7 +101,7 @@ public class CodeGenUtil {
             dataMapper.put("table", table.getName());
             FreemarkerUtil.genMapperFile(dataMapper, table);
         }
-        ZipUtil.toZip("bin/bigtour-pom", new FileOutputStream(new File("bin/" + project + "-" + module
+        ZipUtil.toZip("bin/" + project + "-" + module, new FileOutputStream(new File("bin/" + project + "-" + module
                 + ".zip")), true);
     }
 }

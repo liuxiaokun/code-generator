@@ -29,7 +29,7 @@ public class GenController {
 
         PROJECT_NAME = downloadDTO.getProjectName();
         MODULE_NAME = downloadDTO.getModuleName();
-        DirUtil.genDirTree(downloadDTO.getProjectName(), downloadDTO.getModuleName());
+        DirUtil.genDirTree(downloadDTO);
 
         File file = new File("bin/" + downloadDTO.getProjectName() + "-" + downloadDTO.getModuleName() + ".zip");
 

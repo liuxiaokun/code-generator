@@ -1,6 +1,7 @@
 package com.cloudoer.framework.code.generator.utils;
 
 
+import com.cloudoer.framework.code.generator.dto.DownloadDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -14,11 +15,12 @@ import java.io.File;
 public class DirUtil {
 
 
-    public static void genDirTree(String projectName, String moduleName) throws Exception {
+    public static void genDirTree(DownloadDTO downloadDTO) throws Exception {
         String binDirectory = "bin/";
+        String projectName = downloadDTO.getProjectName();
+        String moduleName = downloadDTO.getModuleName();
 
         FileUtils.delete(new File(binDirectory));
-
         // 把archetype复制到目标文件夹
         FileUtils.copy(new File("src/main/archetype"), new File(binDirectory + projectName + "-" + moduleName));
 
@@ -27,8 +29,8 @@ public class DirUtil {
         String targetDirectory = binDirectory + projectName + "-" + moduleName + "/" + "src/main/java/com/cloudoer/" + projectName;
         FileUtils.renameDirectory(sourceDirectory, targetDirectory);
         FileUtils.renameDirectory(targetDirectory + "/module", targetDirectory + "/" + moduleName);
-        log.info("1");
 
-        CodeGenUtil.genCodes(projectName, moduleName);
+        log.info("rename package complete, {}", moduleName);
+        CodeGenUtil.genCodes(downloadDTO);
     }
 }

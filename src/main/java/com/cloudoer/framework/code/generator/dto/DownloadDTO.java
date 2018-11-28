@@ -2,6 +2,8 @@ package com.cloudoer.framework.code.generator.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author liuxiaokun
  * @version 0.0.1
@@ -13,7 +15,9 @@ public class DownloadDTO {
     private String projectName;
     private String moduleName;
     private String host;
+    private String port;
     private String username;
     private String password;
     private String database;
+    private List<String> tables;
 }

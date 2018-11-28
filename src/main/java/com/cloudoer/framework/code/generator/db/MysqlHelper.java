@@ -1,9 +1,12 @@
 package com.cloudoer.framework.code.generator.db;
 
-import com.cloudoer.framework.code.generator.config.Jdbc;
+import com.cloudoer.framework.code.generator.dto.DownloadDTO;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,14 +23,16 @@ public class MysqlHelper {
     private static Map<String, Table> tableMap = new HashMap<>();
     private static Map<String, Column> columnMap = new HashMap<>();
 
-    public static List<Table> getTables(Jdbc jdbc) throws Exception {
+    public static List<Table> getTables(DownloadDTO jdbc) throws Exception {
 
         List<Table> tables = new ArrayList<>();
         List<String> tableNames = new ArrayList<>();
         Map<String, String> comments = new HashMap<>();
 
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(jdbc.getUrl(), jdbc.getUsername(), jdbc.getPassword());
+        String url = "jdbc:mysql://" + jdbc.getHost() + ":" + jdbc.getPort() + "/"
+                + jdbc.getDatabase() + "?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8";
+        Connection conn = DriverManager.getConnection(url, jdbc.getUsername(), jdbc.getPassword());
 
         Statement statement = conn.createStatement();
         ResultSet resultSet = statement.executeQuery("SHOW TABLE STATUS ");
@@ -76,9 +81,5 @@ public class MysqlHelper {
             tableMap.put(tableName, table);
         }
         return tables;
-    }
-
-    public static void main(String[] args) throws Exception {
-        getTables(new Jdbc());
     }
 }
