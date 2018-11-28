@@ -30,7 +30,7 @@ public class BaseController<T extends BaseEntity> {
     protected T packAddBaseProps(T base, HttpServletRequest request) {
         long now = System.currentTimeMillis();
         base.setId(AppContext.IdGen.nextId());
-        base.setCreatedBy(getUserId(request);
+        base.setCreatedBy(getUserId(request));
         base.setCreatedDate(now);
         base.setStatus(1);
 
@@ -38,7 +38,7 @@ public class BaseController<T extends BaseEntity> {
     }
 
     protected T packModifyBaseProps(T base, HttpServletRequest request) {
-        base.setModifiedBy(getUserId(request);
+        base.setModifiedBy(getUserId(request));
         base.setModifiedDate(System.currentTimeMillis());
         return base;
     }
