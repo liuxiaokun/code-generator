@@ -43,7 +43,7 @@ public class BaseController<T extends BaseEntity> {
         return base;
     }
 
-    public static Long getUserId(HttpServletRequest request) {
+    public Long getUserId(HttpServletRequest request) {
         String jwt = request.getHeader("Authorization");
 
         Claims claims = Jwts.parser()
