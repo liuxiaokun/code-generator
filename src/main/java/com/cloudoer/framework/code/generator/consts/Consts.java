@@ -10,8 +10,8 @@ public class Consts {
     public static String PROJECT_NAME = "project";
     public static String MODULE_NAME = "module";
 
-    public static String BIN_PATH = "/opt/utils/bin/";
-    public static String ARCHETYPE_PATH = "/opt/utils/archetype/";
-    public static String TEMPLATE_PATH = "/opt/utils/template/";
+    public static String BIN_PATH;
+    public static String ARCHETYPE_PATH;
+    public static String TEMPLATE_PATH;
 
 }

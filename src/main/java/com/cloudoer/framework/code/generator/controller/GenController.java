@@ -36,7 +36,7 @@ public class GenController {
 
         PROJECT_NAME = downloadDTO.getProjectName();
         MODULE_NAME = downloadDTO.getModuleName();
-        BIN_PATH = dirPath.getTemplate();
+        TEMPLATE_PATH = dirPath.getTemplate();
         ARCHETYPE_PATH = dirPath.getArchetype();
         BIN_PATH = dirPath.getBin();
         DirUtil.genDirTree(downloadDTO);

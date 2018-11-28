@@ -1,4 +1,4 @@
 path:
-  bin: /opt/utils/bin/
-  archetype: /opt/utils/archetype/
-  template: /opt/utils/template/
+  bin: E:/code/code-generator/bin/
+  archetype: E:/code/code-generator/src/main/archetype/
+  template: E:/code/code-generator/src/main/resources/template/
