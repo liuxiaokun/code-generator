@@ -7,6 +7,8 @@ import com.cloudoer.framework.code.generator.db.Table;
 import com.cloudoer.framework.code.generator.enums.ClassType;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +21,11 @@ import java.util.Map;
 @Slf4j
 public class CodeGenUtil {
 
-    public static void gencodes(String project, String module) throws Exception {
+    public static void genCodes(String project, String module) throws Exception {
 
         List<Table> tables = MysqlHelper.getTables(new Jdbc());
 
         for (Table table : tables) {
-
             //生成Entity
             String entityNameUpper = NameUtil.genEntityClassName(true, true, table.getName());
             String tableComment = NameUtil.getTableComment(table);
@@ -94,5 +95,7 @@ public class CodeGenUtil {
             dataMapper.put("table", table.getName());
             FreemarkerUtil.genMapperFile(dataMapper, table);
         }
+        ZipUtil.toZip("bin/bigtour-pom", new FileOutputStream(new File("bin/" + project + "-" + module
+                + ".zip")), true);
     }
 }
