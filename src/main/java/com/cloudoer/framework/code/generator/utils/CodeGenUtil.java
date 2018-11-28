@@ -6,6 +6,7 @@ import com.cloudoer.framework.code.generator.db.Table;
 import com.cloudoer.framework.code.generator.dto.DownloadDTO;
 import com.cloudoer.framework.code.generator.enums.ClassType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,7 +30,9 @@ public class CodeGenUtil {
         List<String> needGenTables = downloadDTO.getTables();
         List<Table> tables = MysqlHelper.getTables(downloadDTO);
 
-        tables = tables.stream().filter(item -> needGenTables.contains(item.getName())).collect(Collectors.toList());
+        if (!CollectionUtils.isEmpty(needGenTables)) {
+            tables = tables.stream().filter(item -> needGenTables.contains(item.getName())).collect(Collectors.toList());
+        }
 
         for (Table table : tables) {
             //生成Entity
@@ -54,11 +57,11 @@ public class CodeGenUtil {
             FreemarkerUtil.genFile("domain.template", ClassType.ENTITY, dataEntity);
 
             //生成DAO
-            Map<String, String> dataDAO = new HashMap<>(4);
-            dataDAO.put("project", project);
-            dataDAO.put("module", module);
-            dataDAO.put("EntityName", entityNameUpper);
-            FreemarkerUtil.genFile("DAO.template", ClassType.DAO, dataDAO);
+            Map<String, String> commonData = new HashMap<>(4);
+            commonData.put("project", project);
+            commonData.put("module", module);
+            commonData.put("EntityName", entityNameUpper);
+            FreemarkerUtil.genFile("DAO.template", ClassType.DAO, commonData);
 
             //生成DTO
             Map<String, String> dataDTO = new HashMap<>(4);
@@ -70,18 +73,10 @@ public class CodeGenUtil {
             FreemarkerUtil.genFile("DTO.template", ClassType.DTO, dataDTO);
 
             //生成Service
-            Map<String, String> dataService = new HashMap<>(4);
-            dataService.put("project", project);
-            dataService.put("module", module);
-            dataService.put("EntityName", entityNameUpper);
-            FreemarkerUtil.genFile("Service.template", ClassType.SERVICE, dataService);
+            FreemarkerUtil.genFile("Service.template", ClassType.SERVICE, commonData);
 
             //生成ServiceImpl
-            Map<String, String> dataServiceImpl = new HashMap<>(4);
-            dataServiceImpl.put("project", project);
-            dataServiceImpl.put("module", module);
-            dataServiceImpl.put("EntityName", entityNameUpper);
-            FreemarkerUtil.genFile("ServiceImpl.template", ClassType.SERVICE_IMPL, dataServiceImpl);
+            FreemarkerUtil.genFile("ServiceImpl.template", ClassType.SERVICE_IMPL, commonData);
 
             //生成Controller
             Map<String, String> dataController = new HashMap<>(4);
