@@ -5,24 +5,53 @@
     <title>云朵软件-代码生成工具</title>
     <!--<script src="../static/vue2.5.17.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- import Vue.js -->
+    <script src="//vuejs.org/js/vue.min.js"></script>
+    <!-- import stylesheet -->
+    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+    <!-- import iView -->
+    <script src="//unpkg.com/iview/dist/iview.min.js"></script>
+
+    <style>
+        #fred {
+            margin: 0 auto;
+            width: 600px;
+            border: 1px solid #a9a7ff;
+            padding: 20px;
+            background: aliceblue
+        }
+    </style>
 </head>
 <body>
 <div id="fred">
+    <h2>云朵软件-代码生成服务</h2>
     <form action="/gen/" method="get">
-        <input v-model="projectName" name="projectName" placeholder="请输入maven项目名"><br>
-        <input v-model="moduleName" name="moduleName" placeholder="请输入maven模块名"><br>
-        <p>即将生成的base package名字: com.cloudoer.{{projectName}}.{{moduleName}}</p>
-        <input v-model="host" name="host" placeholder="请输入数据库连接host"><br>
-        <input v-model="port" name="port" placeholder="请输入数据库连接port"><br>
-        <input v-model="username" name="username" placeholder="请输入数据库连接用户名"><br>
-        <input v-model="password" name="password" placeholder="请输入数据库连接密码"><br>
-        <input v-model="database" name="database" placeholder="请输入数据库连接实例名"><br>
-        <p>即将生成的query-string: jdbc:mysql://{{host}}:{{port}}/{{database}}?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</p>
-        <input type="text" name="tables" placeholder="填写要生成的表名，多个用英文逗号分隔"><br>
-        <button type="submit">生成并下载</button>
+        <Divider orientation="left">项目名 & 模块名</Divider>
+        <i-input prefix="ios-help-buoy" v-model="projectName" name="projectName" clearable
+                 placeholder="请输入maven项目名"></i-input>
+        <i-input prefix="ios-help-buoy" v-model="moduleName" name="moduleName" clearable
+                 placeholder="请输入maven模块名"></i-input>
+        <Divider orientation="left">项目包名</Divider>
+        <i-input v-model="package" disabled></i-input>
+        <Divider orientation="left">数据库-Host & 端口</Divider>
+        <i-input prefix="ios-help-buoy" v-model="host" name="host" clearable placeholder="请输入数据库host"></i-input>
+        <i-input prefix="ios-help-buoy" v-model="port" name="port" clearable placeholder="请输入数据库port"></i-input>
+        <Divider orientation="left">数据库-用户名 & 密码</Divider>
+        <i-input prefix="ios-person" v-model="username" name="username" clearable placeholder="请输入数据库用户名"></i-input>
+        <i-input prefix="ios-eye" v-model="password" name="password" type="password" clearable
+                 placeholder="请输入数据库密码"></i-input>
+        <Divider orientation="left">数据库-实例</Divider>
+        <i-input prefix="md-analytics" v-model="database" name="database" clearable placeholder="请输入数据库实例名"></i-input>
+        <Divider orientation="left">数据库-URL</Divider>
+        <i-input v-model="url" disabled></i-input>
+        <Divider orientation="left">数据库-表名列表（多个逗号分隔）</Divider>
+        <i-input prefix="ios-help-buoy" name="tables" placeholder="填写要生成的表名，多个用英文逗号分隔"></i-input>
+        <Divider></Divider>
+        <button type="submit" class="ivu-btn ivu-btn-success ivu-btn-long">
+            <i class="ivu-icon ivu-icon-ios-download-outline"></i><span>生成并下载</span></button>
     </form>
 </div>
-
 
 <script>
     new Vue({
@@ -36,6 +65,37 @@
             username: "root",
             password: "123456",
             database: "bdp_pom",
+        },
+
+        methods: {
+            handleSubmit: function () {
+
+                axios.get("http://localhost:8080/gen/", {
+                    params: {
+                        projectName: this.projectName,
+                        moduleName: this.moduleName,
+                        host: this.host,
+                        port: this.port,
+                        username: this.username,
+                        password: this.password,
+                        database: this.database
+                    }
+                }).then(function (response) {
+                    alert(response.data)
+                }).catch(function (error) {
+                    alert(error);
+                });
+            }
+        },
+        computed: {
+            url: function () {
+                // `this` 指向 vm 实例
+                return 'jdbc:mysql://' + this.host + ':' + this.port + '/' + this.database
+            },
+
+            package: function () {
+                return 'com.cloudoer.' + this.projectName + '.' + this.moduleName + '.xxx'
+            }
         }
     })
 </script>
