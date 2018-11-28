@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.cloudoer.framework.code.generator.consts.Consts.*;
-
 import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
 
 /**
@@ -24,8 +23,6 @@ import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENT
  */
 @Slf4j
 public class FreemarkerUtil {
-
-    private static final String TEMPLATE_PATH = "src/main/resources/template";
 
     public static void main(String[] args) {
         Map<String, String> data = new HashMap<>(3);
@@ -66,11 +63,10 @@ public class FreemarkerUtil {
     public static void genMapperFile(Map<String, String> data, Table table) throws IOException {
 
         data = packData(data, table);
-        InputStream in = Object.class.getResourceAsStream("/template/mapper.template");
         String mapperTemplateContent = null;
 
         try {
-            mapperTemplateContent = FileUtils.readAsText(in);
+            mapperTemplateContent = FileUtils.readAsText(TEMPLATE_PATH + "mapper.template");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +77,7 @@ public class FreemarkerUtil {
             }
         }
 
-        String mapperPath = "bin/" + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/resources/mapper/"
+        String mapperPath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/resources/mapper/"
                 + NameUtil.genEntityClassName(true, true, table.getName()) + "Mapper.xml";
         FileWriter fileWriter = new FileWriter(new File(mapperPath), false);
         fileWriter.write(mapperTemplateContent);
@@ -148,7 +144,7 @@ public class FreemarkerUtil {
 
     private static String getGenFilePath(@NonNull ClassType classType, String entityName) {
         String genFilePath;
-        String basePath = "bin/" + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/java/com/cloudoer/";
+        String basePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/java/com/cloudoer/";
 
         switch (classType) {
 
@@ -183,7 +179,7 @@ public class FreemarkerUtil {
                 break;
 
             case MAPPER:
-                genFilePath = "bin/" + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/resources/mapper/"
+                genFilePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/resources/mapper/"
                         + entityName + "Mapper.xml";
                 break;
 

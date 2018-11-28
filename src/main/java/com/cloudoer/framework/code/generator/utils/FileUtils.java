@@ -15,8 +15,8 @@ public class FileUtils {
                 try {
                     destination.setWritable(true);
                     destination.mkdirs();
-                } catch (Exception var6) {
-                    var6.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

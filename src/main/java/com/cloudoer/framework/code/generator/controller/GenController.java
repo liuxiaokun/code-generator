@@ -1,8 +1,10 @@
 package com.cloudoer.framework.code.generator.controller;
 
+import com.cloudoer.framework.code.generator.config.DirPath;
 import com.cloudoer.framework.code.generator.dto.DownloadDTO;
 import com.cloudoer.framework.code.generator.utils.DirUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
-import static com.cloudoer.framework.code.generator.consts.Consts.MODULE_NAME;
-import static com.cloudoer.framework.code.generator.consts.Consts.PROJECT_NAME;
+import static com.cloudoer.framework.code.generator.consts.Consts.*;
 
 /**
  * @author liuxiaokun
@@ -23,15 +24,24 @@ import static com.cloudoer.framework.code.generator.consts.Consts.PROJECT_NAME;
 @Slf4j
 public class GenController {
 
+    private final DirPath dirPath;
+
+    @Autowired
+    public GenController(DirPath dirPath) {
+        this.dirPath = dirPath;
+    }
 
     @GetMapping("")
     public String downLoad(DownloadDTO downloadDTO, HttpServletResponse response) throws Exception {
 
         PROJECT_NAME = downloadDTO.getProjectName();
         MODULE_NAME = downloadDTO.getModuleName();
+        BIN_PATH = dirPath.getTemplate();
+        ARCHETYPE_PATH = dirPath.getArchetype();
+        BIN_PATH = dirPath.getBin();
         DirUtil.genDirTree(downloadDTO);
 
-        File file = new File("bin/" + downloadDTO.getProjectName() + "-" + downloadDTO.getModuleName() + ".zip");
+        File file = new File(BIN_PATH + downloadDTO.getProjectName() + "-" + downloadDTO.getModuleName() + ".zip");
 
         log.info("file.exists():{}", file.exists());
         if (file.exists()) {
@@ -69,6 +79,7 @@ public class GenController {
                 }
             }
         }
+        log.info("gen code end");
         return "OK";
     }
 }
