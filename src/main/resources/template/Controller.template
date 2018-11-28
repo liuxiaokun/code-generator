@@ -1,0 +1,130 @@
+package com.cloudoer.${project}.${module}.controller;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Vector;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cloudoer.framework.domain.PagingContext;
+import com.cloudoer.framework.domain.SortingContext;
+import com.cloudoer.web.common.RO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+
+import com.cloudoer.framework.domain.PagingContext;
+import com.cloudoer.framework.domain.SortingContext;
+import com.cloudoer.framework.util.StringUtil;
+import com.cloudoer.framework.util.DateUtil;
+import com.cloudoer.${project}.${module}.model.entity.${EntityName};
+import com.cloudoer.${project}.${module}.service.${EntityName}Service;
+import com.cloudoer.${project}.${module}.model.dto.${EntityName}DTO;
+import com.cloudoer.${project}.${module}.controller.BaseController;
+import com.cloudoer.${project}.${module}.exception.BizException;
+import com.cloudoer.${project}.${module}.utils.BeanUtil;
+
+/**
+ * @author code gen
+ * @version 0.0.1
+ * @since 2018/11/20
+ */
+@RestController
+@RequestMapping("/${entityName}")
+@Slf4j
+@Api("${tableComment}")
+public class ${EntityName}Controller extends BaseController<${EntityName}> {
+
+    private final ${EntityName}Service ${entityName}Service;
+
+    @Autowired
+    public ${EntityName}Controller(${EntityName}Service ${entityName}Service) {
+        this.${entityName}Service = ${entityName}Service;
+    }
+
+    @ApiOperation(value = "根据条件查询${EntityName}列表", notes = "包含查询条件，分页以及排序功能")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "s", value = "每页的条数", paramType = "query"),
+            @ApiImplicitParam(name = "p", value = "请球的页码", paramType = "query"),
+            @ApiImplicitParam(name = "sc", value = "排序字段，格式：sc=name(asc)&sc=age(desc)", paramType = "query"),
+            })
+    @GetMapping()
+    public Object list(HttpServletRequest request, ${EntityName}DTO ${entityName}DTO) {
+
+        Map<String, Object> params = getConditionsMap(request);
+        List<${EntityName}> list = new ArrayList<>();
+        PagingContext pc = null;
+        Vector<SortingContext> scs = null;
+        int total = ${entityName}Service.count(params);
+        if (total > 0) {
+            pc = getPagingContext(request, total);
+            scs = getSortingContext(request);
+            list = ${entityName}Service.find(params, scs, pc);
+        }
+        return RO.build(RO.RC_SUCCESS, "成功", list, pc, scs);
+    }
+
+    @ApiOperation(value = "查询${EntityName}", notes = "根据ID查询${EntityName}")
+    @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
+    @GetMapping("/{id}")
+    public Object view(@PathVariable("id") Long id) {
+        log.info("get ${entityName} Id:", id);
+        return RO.build(RO.RC_SUCCESS, "成功", ${entityName}Service.findById(id));
+    }
+
+    @ApiOperation(value = "新增${EntityName}", notes = "新增一条${EntityName}记录")
+    @PostMapping("")
+    public Object create(${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
+        log.info("add ${entityName} DTO:{}", ${entityName}DTO);
+
+        ${EntityName} source${EntityName} = new ${EntityName}();
+        try {
+            ${EntityName} ${entityName} = BeanUtil.copyProperties(${entityName}DTO, source${EntityName});
+            ${entityName}Service.save(this.packAddBaseProps(${entityName}, request));
+        } catch (BizException e) {
+            log.error("add ${entityName} failed,  ${entityName}DTO: {}, error message:{}", ${entityName}DTO, e.getMessage());
+            return RO.build(RO.RC_FAIL, "失败", e.getMessage());
+        }
+        return RO.ok();
+    }
+
+    @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 部分修改一条${EntityName}记录")
+    @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
+    @PatchMapping("/{id}")
+    public Object update(@PathVariable("id") Long id, ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
+        log.info("patch modify id:{}, ${entityName} DTO:{}", id, ${entityName}DTO);
+
+        ${EntityName} ${entityName} = ${entityName}Service.findById(id);
+        if(null == ${entityName}) {
+            return RO.build(RO.RC_FAIL, "失败", "不存在的${EntityName}");
+        }
+        ${entityName}Service.update(this.packModifyBaseProps(BeanUtil.copyProperties(${entityName}DTO, ${entityName}), request));
+        return RO.ok();
+    }
+
+    @ApiOperation(value = "删除${EntityName}", notes = "根据ID, 逻辑删除一条${EntityName}记录")
+    @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
+    @DeleteMapping("/{id}")
+    public Object remove(HttpServletRequest request, @PathVariable("id") Long id) {
+        log.info("delete ${entityName}, id:{}", id);
+
+        try {
+            ${entityName}Service.delete(id, this.getUserId(request));
+        } catch (BizException e) {
+            log.error("delete failed, ${entityName} id: {}, error message:{}", id, e.getMessage());
+            return RO.build(RO.RC_FAIL, "失败", e.getMessage());
+        }
+        return RO.ok();
+    }
+    
+}

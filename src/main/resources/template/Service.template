@@ -1,0 +1,12 @@
+package com.cloudoer.${project}.${module}.service;
+
+import com.cloudoer.${project}.${module}.service.BaseService;
+import com.cloudoer.${project}.${module}.model.entity.Report;
+
+/**
+ * @author code gen
+ * @version 0.0.1
+ * @since 2018/11/20
+ */
+public interface ${EntityName}Service extends BaseService<${EntityName}> {
+}
