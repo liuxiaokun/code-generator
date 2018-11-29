@@ -90,10 +90,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     public Object update(@PathVariable("id") Long id, ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
         log.info("put modify id:{}, ${entityName} DTO:{}", id, ${entityName}DTO);
 
-        ${EntityName} ${entityName} = ${entityName}Service.findById(id);
-        if (null == ${entityName}) {
-            return RO.build(RO.RC_FAIL, "失败", "不存在的${EntityName}");
-        }
+        ${EntityName} ${entityName} = new ${EntityName}();
         ${entityName}Service.update(this.packModifyBaseProps(BeanUtil.copyProperties(${entityName}DTO, ${entityName}), request));
         return RO.ok();
     }
@@ -126,5 +123,5 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         }
         return RO.ok();
     }
-    
+
 }
