@@ -91,7 +91,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         log.info("put modify id:{}, ${entityName} DTO:{}", id, ${entityName}DTO);
 
         ${EntityName} ${entityName} = ${entityName}Service.findById(id);
-        if(null == ${entityName}) {
+        if (null == ${entityName}) {
             return RO.build(RO.RC_FAIL, "失败", "不存在的${EntityName}");
         }
         ${entityName}Service.update(this.packModifyBaseProps(BeanUtil.copyProperties(${entityName}DTO, ${entityName}), request));
