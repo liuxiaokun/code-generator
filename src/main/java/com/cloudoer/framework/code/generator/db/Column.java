@@ -35,7 +35,7 @@ public class Column {
         }
         StringBuilder filedSegment = new StringBuilder();
 
-        filedSegment.append("\n").append(QUICK_INDENT_1);
+        filedSegment.append("\n").append("\n").append(QUICK_INDENT_1);
 
         if (ClassType.DTO.equals(classType)) {
             filedSegment.append("@ApiModelProperty(value = \"").append(comment).append("\", name = \"")

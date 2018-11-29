@@ -50,8 +50,8 @@ public class CodeGenUtil {
                 entityFields.append(entityField);
                 dtoFields.append(dtoField);
             }
-            entityFields.delete(0, 5);
-            dtoFields.delete(0, 5);
+            entityFields.delete(0, 6);
+            dtoFields.delete(0, 6);
 
             //生成Entity
             Map<String, String> dataEntity = new HashMap<>(4);
