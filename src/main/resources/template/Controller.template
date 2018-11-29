@@ -98,9 +98,9 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         return RO.ok();
     }
 
-    @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 部分修改一条${EntityName}记录")
+    @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 修改一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public Object update(@PathVariable("id") Long id, ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
         log.info("patch modify id:{}, ${entityName} DTO:{}", id, ${entityName}DTO);
 
