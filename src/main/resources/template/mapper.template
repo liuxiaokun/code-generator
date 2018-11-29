@@ -198,7 +198,7 @@
                 ${cname}
             ]]>
         </foreach>
-         FROM  {table} 
+         FROM {table}
         <trim prefix="WHERE" prefixOverrides="AND |OR">
             <choose>
                 <when test="status !=null ">status = #{status}</when>
