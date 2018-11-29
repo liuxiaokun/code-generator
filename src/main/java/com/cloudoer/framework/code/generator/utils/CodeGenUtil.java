@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.cloudoer.framework.code.generator.consts.Consts.BIN_PATH;
+
 /**
  * @author liuxiaokun
  * @version 0.0.1
@@ -48,7 +50,10 @@ public class CodeGenUtil {
                 entityFields.append(entityField);
                 dtoFields.append(dtoField);
             }
+            entityFields.delete(0, 5);
+            dtoFields.delete(0, 5);
 
+            //生成Entity
             Map<String, String> dataEntity = new HashMap<>(4);
             dataEntity.put("project", project);
             dataEntity.put("module", module);
@@ -96,7 +101,7 @@ public class CodeGenUtil {
             dataMapper.put("table", table.getName());
             FreemarkerUtil.genMapperFile(dataMapper, table);
         }
-        ZipUtil.toZip("bin/" + project + "-" + module, new FileOutputStream(new File("bin/" + project + "-" + module
+        ZipUtil.toZip(BIN_PATH + project + "-" + module, new FileOutputStream(new File(BIN_PATH + project + "-" + module
                 + ".zip")), true);
     }
 }

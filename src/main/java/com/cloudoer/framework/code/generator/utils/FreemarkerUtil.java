@@ -24,6 +24,11 @@ import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENT
 @Slf4j
 public class FreemarkerUtil {
 
+    public static final String QUICK_INDENT_1 = "    ";
+    public static final String QUICK_INDENT_2 = "        ";
+    public static final String QUICK_INDENT_3 = "            ";
+    public static final String QUICK_INDENT_4 = "                ";
+
     public static void main(String[] args) {
         Map<String, String> data = new HashMap<>(3);
         data.put("project", "bdp");
@@ -98,9 +103,9 @@ public class FreemarkerUtil {
                 fieldsmap.append(column.genFieldMapSnippet());
                 fields.append("`" + column.getField() + "`");
                 if ("status".equalsIgnoreCase(field)) {
-                    values.append("<choose>\n\t\t\t\t");
-                    values.append("<when test=\"status != null\">#{status.value}</when>\n\t\t\t\t");
-                    values.append("<otherwise>1</otherwise>\n\t\t\t");
+                    values.append("<choose>\n").append(QUICK_INDENT_4);
+                    values.append("<when test=\"status != null\">#{status.value}</when>\n").append(QUICK_INDENT_4);
+                    values.append("<otherwise>1</otherwise>\n").append(QUICK_INDENT_3);
                     values.append("</choose>");
                 } else {
                     values.append("#{" + field + "}");
@@ -110,23 +115,23 @@ public class FreemarkerUtil {
                 if (!"id".equals(column.getField()) && !"modified_by".equals(column.getField())
                         && !"modified_date".equals(column.getField()) && !"created_by".equals(column.getField())
                         && !"created_date".equals(column.getField()) && !"status".equals(column.getField())) {
-                    udatas.append("`" + column.getField() + "`=#{" + field + "}, \n\t\t\t\t");
+                    udatas.append("`" + column.getField() + "`=#{" + field + "}, \n").append(QUICK_INDENT_4);
                     String type = column.getType();
                     if ("date".equals(type) || "time".equals(type) || "datetime".equals(type)
                             || "timestamp".equals(type) || "year".equals(type)) {
-                        conditions.append("<if test=\"" + field + "_dr != null\">\n\t\t\t\tAND `"
+                        conditions.append("<if test=\"" + field + "_dr != null\">\n" + QUICK_INDENT_4 + "AND `"
                                 + column.getField() + "` BETWEEN #{" + field + "_dr.start} AND #{" + field
-                                + "_dr.end}\n\t\t\t</if>\n\t\t\t");
+                                + "_dr.end}\n" + QUICK_INDENT_3 + "</if>\n").append(QUICK_INDENT_3);
                     } else {
-                        conditions.append("<if test=\"" + field + " != null\">\n\t\t\t\tAND `" + column.getField()
-                                + "` = #{" + field + "}\n\t\t\t</if>\n\t\t\t");
+                        conditions.append("<if test=\"" + field + " != null\">\n" + QUICK_INDENT_4 + "AND `" + column.getField()
+                                + "` = #{" + field + "}\n" + QUICK_INDENT_3 + "</if>\n").append(QUICK_INDENT_3);
                     }
                 }
                 if (i != table.getColumns().size() - 1) {
-                    fields.append(",\n\t\t\t");
-                    values.append(",\n\t\t\t");
-                    values2.append(",\n\t\t\t");
-                    fieldsmap.append("\n\t\t");
+                    fields.append(",\n").append(QUICK_INDENT_3);
+                    values.append(",\n").append(QUICK_INDENT_3);
+                    values2.append(",\n").append(QUICK_INDENT_3);
+                    fieldsmap.append("\n").append(QUICK_INDENT_2);
                 }
                 i++;
             }

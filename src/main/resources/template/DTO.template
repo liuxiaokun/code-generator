@@ -15,5 +15,6 @@ import java.util.Date;
 @ApiModel("${tableComment}")
 @Data
 public class ${EntityName}DTO implements Serializable {
+
     ${fields}
 }
