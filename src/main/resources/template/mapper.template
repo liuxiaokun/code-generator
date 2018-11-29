@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.cloudoer.{project}.{module}.dao.{EntityName}DAO">
     <resultMap type="com.cloudoer.{project}.{module}.model.entity.{EntityName}" id="{EntityName}Map">
         {fieldsmap}
     </resultMap>
 
     <insert id="insert" parameterType="com.cloudoer.{project}.{module}.model.entity.{EntityName}">
-         INSERT INTO  {table} (
-             {fields}
-         )VALUES(
-             {values}
-         )
+        INSERT INTO {table} (
+            {fields}
+        )VALUES(
+            {values}
+        )
     </insert>
 
     <insert id="insertList" parameterType="List">
-         INSERT INTO  {table} (
-             {fields}
-         )VALUES
-         <foreach collection="list" item="data" separator=",">
-         (
-             {values2}<choose>
+        INSERT INTO {table} (
+            {fields}
+        )VALUES
+        <foreach collection="list" item="data" separator=",">
+        (
+            {values2}<choose>
                 <when test="data.status != null">#{data.status.value}</when>
                 <otherwise>1</otherwise>
             </choose>
-         )
-         </foreach>
+        )
+        </foreach>
     </insert>
 
     <update id="update" parameterType="com.cloudoer.{project}.{module}.model.entity.{EntityName}">
         <![CDATA[
             UPDATE {table} SET
-                 {udatas}`modified_by`=#{modifiedBy},
-                 `modified_date`=#{modifiedDate}
-         ]]>
-         <trim prefix="WHERE" prefixOverrides="AND |OR">
+                {udatas}`modified_by`=#{modifiedBy},
+                `modified_date`=#{modifiedDate}
+        ]]>
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
             <choose>
                 <when test="status !=null ">status = #{status.value}</when>
                 <otherwise><![CDATA[status > 0]]></otherwise>
@@ -47,8 +50,8 @@
     <update id="updatex" parameterType="Map">
         <![CDATA[
             UPDATE {table} SET
-         ]]>
-         <foreach collection="datas.keys" item="key" separator=","
+        ]]>
+        <foreach collection="datas.keys" item="key" separator=","
             open=" " close=" ">
             <if test="key != null">
                 `${key}`= #{datas[${key}]}
@@ -70,12 +73,12 @@
 
     <update id="delete" parameterType="Map">
         <![CDATA[
-             UPDATE {table} SET
-                 `status`=0,
-                 `modified_by`=#{modifiedBy},
-                 `modified_date`=#{modifiedDate}
-         ]]>
-         <trim prefix="WHERE" prefixOverrides="AND |OR">
+            UPDATE {table} SET
+                `status`=0,
+                `modified_by`=#{modifiedBy},
+                `modified_date`=#{modifiedDate}
+        ]]>
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
             <choose>
                 <when test="status !=null ">status = #{status}</when>
                 <otherwise><![CDATA[status > 0]]></otherwise>
@@ -115,11 +118,11 @@
 
     <select id="count" parameterType="Map" resultType="Integer">
         <![CDATA[
-            SELECT COUNT(DISTINCT id) FROM  {table}
+            SELECT COUNT(DISTINCT id) FROM {table}
         ]]>
         <trim prefix="WHERE" prefixOverrides="AND |OR">
             <choose>
-                <when test="status !=null ">status = #{status}</when>
+                <when test="status !=null">status = #{status}</when>
                 <otherwise><![CDATA[status > 0]]></otherwise>
             </choose>
             <if test="id != null">
@@ -136,9 +139,9 @@
 
     <select id="selectOne" parameterType="Map" resultMap="{EntityName}Map">
         <![CDATA[
-            SELECT * FROM  {table}
+            SELECT * FROM {table}
         ]]>
-        <trim prefix="WHERE" prefixOverrides="AND |OR">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
             <choose>
                 <when test="status !=null ">status = #{status}</when>
                 <otherwise><![CDATA[status > 0]]></otherwise>
@@ -157,12 +160,12 @@
     </select>
 
     <select id="select" parameterType="Map" resultMap="{EntityName}Map">
-         <![CDATA[
-             SELECT * FROM  {table} 
+        <![CDATA[
+            SELECT * FROM {table}
         ]]>
         <trim prefix="WHERE" prefixOverrides="AND |OR">
             <choose>
-                <when test="status !=null ">status = #{status}</when>
+                <when test="status !=null">status = #{status}</when>
                 <otherwise><![CDATA[status > 0]]></otherwise>
             </choose>
             <if test="id != null">
@@ -189,8 +192,8 @@
     </select>
     
     <select id="selectMap" parameterType="Map" resultType="Map">
-         SELECT 
-         <foreach collection="columns" item="cname" separator=","  open="`" close="`">
+        SELECT
+        <foreach collection="columns" item="cname" separator=","  open="`" close="`">
             <![CDATA[
                 ${cname}
             ]]>
