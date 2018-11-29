@@ -112,6 +112,20 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         return RO.ok();
     }
 
+    @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 部分修改一条${EntityName}记录")
+    @ApiImplicitParam(name = "id", value = "主键ID", dataType = "Long", paramType = "path", required = true)
+    @PatchMapping("/{id}")
+    public Object updatex(@PathVariable("id") Long id, HttpServletRequest request, @RequestParam Map<String, Object> params) {
+        log.info("Patch modify Id:{}", id);
+        params.put("modified_by", getUserId(request));
+        params.put("modified_date", System.currentTimeMillis());
+
+        Map<String, Object> conditions = new HashMap<>(1);
+        conditions.put("id", id);
+        ${entityName}Service.updatex(params, conditions);
+        return RO.ok();
+    }
+
     @ApiOperation(value = "删除${EntityName}", notes = "根据ID, 逻辑删除一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
     @DeleteMapping("/{id}")
