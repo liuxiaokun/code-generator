@@ -5,7 +5,7 @@ import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author cobot
+ * @author ${author}
  * @version ${version}
  * @since ${date}
  */

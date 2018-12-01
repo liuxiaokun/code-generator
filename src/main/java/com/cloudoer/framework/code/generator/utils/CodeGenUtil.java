@@ -55,32 +55,23 @@ public class CodeGenUtil {
             entityFields.delete(0, 6);
             dtoFields.delete(0, 6);
 
-            //生成Entity
-            Map<String, String> dataEntity = new HashMap<>(4);
-            dataEntity.put("project", project);
-            dataEntity.put("module", module);
-            dataEntity.put("EntityName", entityNameUpper);
-            dataEntity.put("fields", entityFields.toString());
-            FreemarkerUtil.genFile("domain.template", ClassType.ENTITY, dataEntity);
-
-            //生成DAO
             Map<String, String> commonData = new HashMap<>(4);
             commonData.put("project", project);
             commonData.put("module", module);
             commonData.put("EntityName", entityNameUpper);
-            commonData.put("date", new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+            commonData.put("author", "cobot");
             commonData.put("version", "0.0.1");
+            commonData.put("date", new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+            commonData.put("fields", entityFields.toString());
+            commonData.put("tableComment", tableComment);
+
+            //生成Entity
+            FreemarkerUtil.genFile("domain.template", ClassType.ENTITY, commonData);
+            //生成DAO
             FreemarkerUtil.genFile("DAO.template", ClassType.DAO, commonData);
-
             //生成DTO
-            Map<String, String> dataDTO = new HashMap<>(4);
-            dataDTO.put("project", project);
-            dataDTO.put("module", module);
-            dataDTO.put("EntityName", entityNameUpper);
-            dataDTO.put("tableComment", tableComment);
-            dataDTO.put("fields", dtoFields.toString());
-            FreemarkerUtil.genFile("DTO.template", ClassType.DTO, dataDTO);
-
+            commonData.put("fields", dtoFields.toString());
+            FreemarkerUtil.genFile("DTO.template", ClassType.DTO, commonData);
             //生成BaseController
             FreemarkerUtil.genFile("BaseController.template", ClassType.BASE_CONTROLLER, commonData);
             //生成BaseDAO
@@ -101,22 +92,13 @@ public class CodeGenUtil {
             FreemarkerUtil.genFile("BaseServiceImpl.template", ClassType.BASE_SERVICE_IMPL, commonData);
 
             //生成Controller
-            Map<String, String> dataController = new HashMap<>(4);
-            dataController.put("project", project);
-            dataController.put("module", module);
-            dataController.put("EntityName", entityNameUpper);
-            dataController.put("entityName", entityNameFirstLower);
-            dataController.put("tableComment", tableComment);
-            FreemarkerUtil.genFile("Controller.template", ClassType.CONTROLLER, dataController);
+            commonData.put("entityName", entityNameFirstLower);
+            FreemarkerUtil.genFile("Controller.template", ClassType.CONTROLLER, commonData);
 
             //生成Mapper文件
-            Map<String, String> dataMapper = new HashMap<>(4);
-            dataMapper.put("project", project);
-            dataMapper.put("module", module);
-            dataMapper.put("EntityName", entityNameUpper);
-            dataMapper.put("entityName", entityNameFirstLower);
-            dataMapper.put("table", table.getName());
-            FreemarkerUtil.genMapperFile(dataMapper, table);
+            commonData.put("table", table.getName());
+            commonData.remove("fields");
+            FreemarkerUtil.genMapperFile(commonData, table);
         }
         ZipUtil.toZip(BIN_PATH + project + "-" + module, new FileOutputStream(new File(BIN_PATH + project + "-" + module
                 + ".zip")), true);

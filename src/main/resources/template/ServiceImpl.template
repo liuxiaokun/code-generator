@@ -6,7 +6,7 @@ import com.cloudoer.${project}.${module}.service.${EntityName}Service;
 import org.springframework.stereotype.Service;
 
 /**
- * @author cobot
+ * @author ${author}
  * @version ${version}
  * @since ${date}
  */

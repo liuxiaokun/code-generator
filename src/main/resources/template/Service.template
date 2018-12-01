@@ -4,7 +4,7 @@ import com.cloudoer.${project}.${module}.service.BaseService;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 
 /**
- * @author cobot
+ * @author ${author}
  * @version ${version}
  * @since ${date}
  */

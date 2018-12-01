@@ -3,7 +3,7 @@ package com.cloudoer.${project}.${module}.utils;
 import org.springframework.beans.BeanUtils;
 
 /**
- * @author cobot
+ * @author ${author}
  * @version ${version}
  * @since ${date}
  */

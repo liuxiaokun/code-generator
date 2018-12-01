@@ -18,7 +18,7 @@ import java.util.Vector;
 import java.util.stream.Collectors;
 
 /**
- * @author cobot
+ * @author ${author}
  * @version ${version}
  * @since ${date}
  */

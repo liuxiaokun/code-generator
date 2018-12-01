@@ -3,7 +3,7 @@ package com.cloudoer.${project}.${module}.model.entity;
 import lombok.Data;
 
 /**
- * @author cobot
+ * @author ${author}
  * @version ${version}
  * @since ${date}
  */
