@@ -14,4 +14,7 @@ public class Consts {
     public static String ARCHETYPE_PATH;
     public static String TEMPLATE_PATH;
 
+    public static String AUTHOR = "cobot";
+    public static String VERSION = "0.0.1";
+
 }

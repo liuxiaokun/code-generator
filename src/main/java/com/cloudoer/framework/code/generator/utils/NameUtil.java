@@ -97,9 +97,6 @@ public class NameUtil {
             stringBuilder.append(nameArray[0]);
 
             for (int i = 1; i < nameArray.length; i++) {
-                char[] chars = nameArray[i].toCharArray();
-                chars[0] = Character.toUpperCase(chars[0]);
-                chars.toString();
                 stringBuilder.append(capitalize(nameArray[i]));
             }
         } else {
@@ -113,6 +110,28 @@ public class NameUtil {
             tableName = singularize(tableName);
         }
         return tableName;
+    }
+
+    public static String genControllerRequestMappingPath(String tableName) {
+
+        if (tableName.startsWith("t_")) {
+            tableName = tableName.substring(2);
+        }
+
+        String[] nameArray = tableName.split("_");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (nameArray.length > 1) {
+            stringBuilder.append(nameArray[0]);
+
+            for (int i = 1; i < nameArray.length; i++) {
+                stringBuilder.append("/").append(nameArray[i]);
+            }
+        } else {
+            stringBuilder.append(tableName);
+        }
+
+        return stringBuilder.toString();
     }
 
     public static String getTableComment(Table table) {

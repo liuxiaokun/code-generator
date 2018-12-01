@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.cloudoer.framework.code.generator.consts.Consts.BIN_PATH;
+import static com.cloudoer.framework.code.generator.consts.Consts.*;
 
 /**
  * @author liuxiaokun
@@ -59,14 +59,14 @@ public class CodeGenUtil {
             commonData.put("project", project);
             commonData.put("module", module);
             commonData.put("EntityName", entityNameUpper);
-            commonData.put("author", "cobot");
-            commonData.put("version", "0.0.1");
+            commonData.put("author", AUTHOR);
+            commonData.put("version", VERSION);
             commonData.put("date", new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
             commonData.put("fields", entityFields.toString());
             commonData.put("tableComment", tableComment);
 
             //生成Entity
-            FreemarkerUtil.genFile("domain.template", ClassType.ENTITY, commonData);
+            FreemarkerUtil.genFile("entity.template", ClassType.ENTITY, commonData);
             //生成DAO
             FreemarkerUtil.genFile("DAO.template", ClassType.DAO, commonData);
             //生成DTO
@@ -93,6 +93,7 @@ public class CodeGenUtil {
 
             //生成Controller
             commonData.put("entityName", entityNameFirstLower);
+            commonData.put("ControllerMapping", NameUtil.genControllerRequestMappingPath(table.getName()));
             FreemarkerUtil.genFile("Controller.template", ClassType.CONTROLLER, commonData);
 
             //生成Mapper文件
