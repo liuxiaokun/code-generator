@@ -1,0 +1,16 @@
+package com.cloudoer.${project}.${module}.exception;
+
+/**
+ * @author code gen
+ * @version 0.0.1
+ * @since 2018/9/5
+ */
+public class BizException extends Exception {
+
+    public BizException(){
+    }
+
+    public BizException(String message){
+        super(message);
+    }
+}

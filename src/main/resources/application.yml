@@ -2,3 +2,5 @@ path:
   bin: E:/code/code-generator/bin/
   archetype: E:/code/code-generator/src/main/archetype/
   template: E:/code/code-generator/src/main/resources/template/
+server:
+  port: 8888

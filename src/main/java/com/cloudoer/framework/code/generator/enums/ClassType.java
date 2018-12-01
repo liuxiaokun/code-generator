@@ -32,9 +32,44 @@ public enum ClassType {
     CONTROLLER("controller"),
 
     /**
-     * xxxDTO.java类
+     * BaseController.java类
+     */
+    BASE_CONTROLLER("base_controller"),
+
+    /**
+     * BaseService.java类
+     */
+    BASE_SERVICE("base_service"),
+
+    /**
+     * BaseServiceImpl.java类
+     */
+    BASE_SERVICE_IMPL("base_service_impl"),
+
+    /**
+     * BaseDAO.java类
+     */
+    BASE_DAO("base_dao"),
+
+    /**
+     * xxxMapper.xml类
      */
     MAPPER("mapper"),
+
+    /**
+     * BaseUtil.java类
+     */
+    BEAN_UTIL("base_util"),
+
+    /**
+     * BizException.java类
+     */
+    BIZ_EXCEPTION("biz_exception"),
+
+    /**
+     * BaseEntity.java类
+     */
+    BASE_ENTITY("base_entity"),
 
     /**
      * xxxDTO.java类

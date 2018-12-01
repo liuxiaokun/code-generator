@@ -1,4 +1,4 @@
-package com.cloudoer.bigtour.core.model.entity;
+package com.cloudoer.${project}.${module}.model.entity;
 
 import lombok.Data;
 

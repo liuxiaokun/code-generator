@@ -39,7 +39,7 @@ public class CodeGenUtil {
         for (Table table : tables) {
             //生成Entity
             String entityNameUpper = NameUtil.genEntityClassName(true, true, table.getName());
-            String tableComment = NameUtil.getTableComment(table);
+            String tableComment = NameUtil.getTableComment(table).replace("/r/n", "");
             String entityNameFirstLower = NameUtil.genEntityClassName(false, true, table.getName());
 
             StringBuilder entityFields = new StringBuilder();
@@ -77,11 +77,24 @@ public class CodeGenUtil {
             dataDTO.put("fields", dtoFields.toString());
             FreemarkerUtil.genFile("DTO.template", ClassType.DTO, dataDTO);
 
+            //生成BaseController
+            FreemarkerUtil.genFile("BaseController.template", ClassType.BASE_CONTROLLER, commonData);
+            //生成BaseDAO
+            FreemarkerUtil.genFile("BaseDAO.template", ClassType.BASE_DAO, commonData);
+            //生成BaseEntity
+            FreemarkerUtil.genFile("BaseEntity.template", ClassType.BASE_ENTITY, commonData);
             //生成Service
             FreemarkerUtil.genFile("Service.template", ClassType.SERVICE, commonData);
-
             //生成ServiceImpl
             FreemarkerUtil.genFile("ServiceImpl.template", ClassType.SERVICE_IMPL, commonData);
+            //生成BeanUtil
+            FreemarkerUtil.genFile("BeanUtil.template", ClassType.BEAN_UTIL, commonData);
+            //生成BizException
+            FreemarkerUtil.genFile("BizException.template", ClassType.BIZ_EXCEPTION, commonData);
+            //生成BaseService
+            FreemarkerUtil.genFile("BaseService.template", ClassType.BASE_SERVICE, commonData);
+            //生成BaseServiceImpl
+            FreemarkerUtil.genFile("BaseServiceImpl.template", ClassType.BASE_SERVICE_IMPL, commonData);
 
             //生成Controller
             Map<String, String> dataController = new HashMap<>(4);

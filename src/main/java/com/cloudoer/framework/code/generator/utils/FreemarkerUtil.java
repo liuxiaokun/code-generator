@@ -178,9 +178,44 @@ public class FreemarkerUtil {
                         + "/controller/" + entityName + "Controller.java";
                 break;
 
+            case BASE_CONTROLLER:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/controller/" + "BaseController.java";
+                break;
+
+            case BASE_SERVICE:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/service/" + "BaseService.java";
+                break;
+
+            case BASE_SERVICE_IMPL:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/service/impl/" + "BaseServiceImpl.java";
+                break;
+
+            case BASE_DAO:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/dao/" + "BaseDAO.java";
+                break;
+
+            case BEAN_UTIL:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/utils/" + "BaseUtil.java";
+                break;
+
+            case BIZ_EXCEPTION:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/exception/" + "BizException.java";
+                break;
+
             case DTO:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
                         + "/model/dto/" + entityName + "DTO.java";
+                break;
+
+            case BASE_ENTITY:
+                genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
+                        + "/model/entity/" + "BaseEntity.java";
                 break;
 
             case MAPPER:
@@ -192,7 +227,6 @@ public class FreemarkerUtil {
                 genFilePath = "";
                 break;
         }
-
         return genFilePath;
     }
 }

@@ -1,6 +1,6 @@
-package com.cloudoer.bigtour.core.dao;
+package com.cloudoer.${project}.${module}.dao;
 
-import com.cloudoer.bigtour.core.exception.BizException;
+import com.cloudoer.${project}.${module}.exception.BizException;
 
 import java.util.List;
 import java.util.Map;
