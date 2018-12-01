@@ -6,9 +6,9 @@ import com.cloudoer.${project}.${module}.service.${EntityName}Service;
 import org.springframework.stereotype.Service;
 
 /**
- * @author code gen
- * @version 0.0.1
- * @since 2018/11/20
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 @Service
 public class ${EntityName}ServiceImpl extends BaseServiceImpl<${EntityName}> implements ${EntityName}Service {

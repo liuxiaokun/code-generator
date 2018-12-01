@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * @author code gen
- * @version 0.0.1
- * @since 2018/11/20
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 @RestController
 @RequestMapping("/${entityName}")

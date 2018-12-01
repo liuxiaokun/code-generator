@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author codegen
- * @version 2.0.0
- * @since 2018/11/20
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 public interface BaseDAO<T> {
 

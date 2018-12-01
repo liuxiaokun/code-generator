@@ -4,9 +4,9 @@ import com.cloudoer.${project}.${module}.service.BaseService;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 
 /**
- * @author code gen
- * @version 0.0.1
- * @since 2018/11/20
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 public interface ${EntityName}Service extends BaseService<${EntityName}> {
 }

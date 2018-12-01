@@ -10,6 +10,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +68,8 @@ public class CodeGenUtil {
             commonData.put("project", project);
             commonData.put("module", module);
             commonData.put("EntityName", entityNameUpper);
+            commonData.put("date", new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+            commonData.put("version", "0.0.1");
             FreemarkerUtil.genFile("DAO.template", ClassType.DAO, commonData);
 
             //生成DTO

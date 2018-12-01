@@ -5,9 +5,9 @@ import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author code gen
- * @version 0.0.1
- * @since 2018/11/20
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 @Mapper
 public interface ${EntityName}DAO extends BaseDAO<${EntityName}> {

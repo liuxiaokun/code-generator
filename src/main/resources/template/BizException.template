@@ -1,9 +1,9 @@
 package com.cloudoer.${project}.${module}.exception;
 
 /**
- * @author code gen
- * @version 0.0.1
- * @since 2018/9/5
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 public class BizException extends Exception {
 

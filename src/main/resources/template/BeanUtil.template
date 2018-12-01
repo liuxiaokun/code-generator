@@ -3,9 +3,9 @@ package com.cloudoer.${project}.${module}.utils;
 import org.springframework.beans.BeanUtils;
 
 /**
- * @author code gen
- * @version 0.0.1
- * @since 2018/11/19
+ * @author cobot
+ * @version ${version}
+ * @since ${date}
  */
 public class BeanUtil {
 
