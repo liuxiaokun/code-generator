@@ -46,15 +46,14 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
             })
     @GetMapping()
     public Object list(HttpServletRequest request, ${EntityName}DTO ${entityName}DTO) {
+        log.info("list:{}", ${entityName}DTO);
 
         Map<String, Object> params = getConditionsMap(request);
         List<${EntityName}> list = new ArrayList<>();
-        PagingContext pc = null;
-        Vector<SortingContext> scs = null;
+        PagingContext pc = getPagingContext(request, total);
+        Vector<SortingContext> scs = getSortingContext(request);
         int total = ${entityName}Service.count(params);
         if (total > 0) {
-            pc = getPagingContext(request, total);
-            scs = getSortingContext(request);
             list = ${entityName}Service.find(params, scs, pc);
         }
         return RO.build(RO.RC_SUCCESS, "成功", list, pc, scs);

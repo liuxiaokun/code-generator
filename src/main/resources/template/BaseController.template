@@ -56,21 +56,20 @@ public class BaseController<T extends BaseEntity> {
     /**
      * 获取排序字段
      * <p>
-     * 采用固定格式：sc=n(asc)&sc=p(desc)表示先按name升序排，再按priority降序排
+     * 采用固定格式：scs=type(asc),enabled(desc)表示先按type升序排，再按enabled降序排
      *
      * @param req
      * @return
      */
     public Vector<SortingContext> getSortingContext(HttpServletRequest req) {
         Vector<SortingContext> scs = new Vector<>();
-        String[] sortArray = req.getParameterValues("sc");
-        if (sortArray != null) {
-            String[] sortArrayNew = sortArray;
-            int sortArrayLength = sortArray.length;
+        String scsValue = req.getParameter("scs");
+        if (StringUtils.isNotEmpty(scsValue) && scsValue.contains(SEPARATOR)) {
+            String[] sortArrayNew = scsValue.split(SEPARATOR);
 
-            for (int i = 0; i < sortArrayLength; ++i) {
-                String sc_str = sortArrayNew[i];
-                Matcher matcher = SC_EXTRACTION.matcher(sc_str);
+            for (int i = 0; i < sortArrayNew.length; ++i) {
+                String scStr = sortArrayNew[i];
+                Matcher matcher = SC_EXTRACTION.matcher(scStr);
                 if (matcher.matches()) {
                     String f = matcher.group("field");
                     String o = matcher.group("sort");
