@@ -55,16 +55,12 @@ public class BaseController<T extends BaseEntity> {
 
     /**
      * 获取排序字段
-     * <p>
      * 采用固定格式：scs=type(asc),enabled(desc)表示先按type升序排，再按enabled降序排
-     *
-     * @param req
-     * @return
      */
     public Vector<SortingContext> getSortingContext(HttpServletRequest req) {
         Vector<SortingContext> scs = new Vector<>();
         String scsValue = req.getParameter("scs");
-        if (StringUtils.isNotEmpty(scsValue) && scsValue.contains(SEPARATOR)) {
+        if (StringUtils.isNotEmpty(scsValue)) {
             String[] sortArrayNew = scsValue.split(SEPARATOR);
 
             for (int i = 0; i < sortArrayNew.length; ++i) {
@@ -82,7 +78,6 @@ public class BaseController<T extends BaseEntity> {
                 }
             }
         }
-
         return scs;
     }
 
