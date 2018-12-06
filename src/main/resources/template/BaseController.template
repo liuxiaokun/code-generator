@@ -61,15 +61,14 @@ public class BaseController<T extends BaseEntity> {
         Vector<SortingContext> scs = new Vector<>();
         String scsValue = req.getParameter("scs");
         if (StringUtils.isNotEmpty(scsValue)) {
-            String[] sortArrayNew = scsValue.split(SEPARATOR);
+            String[] sortFields = scsValue.split(SEPARATOR);
 
-            for (int i = 0; i < sortArrayNew.length; ++i) {
-                String scStr = sortArrayNew[i];
+            for (String scStr : sortFields) {
                 Matcher matcher = SC_EXTRACTION.matcher(scStr);
                 if (matcher.matches()) {
                     String field = matcher.group("field");
-                    String order = matcher.group("sort");
-                    order = "asc".equalsIgnoreCase(o) ? "ASC" : "DESC";
+                    String o = matcher.group("sort");
+                    String order = "asc".equalsIgnoreCase(o) ? "ASC" : "DESC";
                     if (StringUtils.isNotEmpty(field) && StringUtils.isNotEmpty(order)) {
                         SortingContext sc = new SortingContext(field, order);
                         scs.add(sc);
@@ -81,7 +80,8 @@ public class BaseController<T extends BaseEntity> {
     }
 
     /**
-     * p = pageindex s = pagesize
+     * p = pageIndex 第几页
+     * s = pageSize  一页几条
      */
     public PagingContext getPagingContext(HttpServletRequest req, Integer total) {
 
