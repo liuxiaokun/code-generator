@@ -67,10 +67,9 @@ public class BaseController<T extends BaseEntity> {
                 String scStr = sortArrayNew[i];
                 Matcher matcher = SC_EXTRACTION.matcher(scStr);
                 if (matcher.matches()) {
-                    String f = matcher.group("field");
-                    String o = matcher.group("sort");
-                    String field = this.getFieldByAlias(f);
-                    String order = "asc".equalsIgnoreCase(o) ? "ASC" : "DESC";
+                    String field = matcher.group("field");
+                    String order = matcher.group("sort");
+                    order = "asc".equalsIgnoreCase(o) ? "ASC" : "DESC";
                     if (StringUtils.isNotEmpty(field) && StringUtils.isNotEmpty(order)) {
                         SortingContext sc = new SortingContext(field, order);
                         scs.add(sc);
@@ -79,16 +78,6 @@ public class BaseController<T extends BaseEntity> {
             }
         }
         return scs;
-    }
-
-    private String getFieldByAlias(String alias) {
-        if ("cd".equals(alias)) {
-            return "createdDate";
-        } else if ("md".equals(alias)) {
-            return "modifiedDate";
-        } else {
-            return "p".equalsIgnoreCase(alias) ? "priority" : alias;
-        }
     }
 
     /**
