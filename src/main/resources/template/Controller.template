@@ -42,7 +42,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "s", value = "每页的条数", paramType = "query"),
             @ApiImplicitParam(name = "p", value = "请球的页码", paramType = "query"),
-            @ApiImplicitParam(name = "sc", value = "排序字段，格式：sc=name(asc)&sc=age(desc)", paramType = "query"),
+            @ApiImplicitParam(name = "sc", value = "排序字段，格式：scs=name(asc),sc=age(desc),有序", paramType = "query"),
             })
     @GetMapping()
     public Object list(HttpServletRequest request, ${EntityName}DTO ${entityName}DTO) {
@@ -69,7 +69,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
     @ApiOperation(value = "新增${EntityName}", notes = "新增一条${EntityName}记录")
     @PostMapping("")
-    public Object create(${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
+    public Object create(@RequestBody ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
         log.info("add ${entityName} DTO:{}", ${entityName}DTO);
 
         ${EntityName} source${EntityName} = new ${EntityName}();
@@ -86,7 +86,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 修改一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
     @PutMapping("/{id}")
-    public Object update(@PathVariable("id") Long id, ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
+    public Object update(@PathVariable("id") Long id, @RequestBody ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
         log.info("put modify id:{}, ${entityName} DTO:{}", id, ${entityName}DTO);
 
         ${EntityName} ${entityName} = new ${EntityName}();
@@ -98,7 +98,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 部分修改一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键ID", dataType = "Long", paramType = "path", required = true)
     @PatchMapping("/{id}")
-    public Object updatex(@PathVariable("id") Long id, HttpServletRequest request, @RequestParam Map<String, Object> params) {
+    public Object updatex(@PathVariable("id") Long id, HttpServletRequest request, @RequestBody Map<String, Object> params) {
         log.info("Patch modify {EntityName} Id:{}", id);
         params.put("modified_by", getUserId(request));
         params.put("modified_date", System.currentTimeMillis());
