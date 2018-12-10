@@ -63,7 +63,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
     @GetMapping("/{id}")
     public Object view(@PathVariable("id") Long id) {
-        log.info("get ${entityName} Id:", id);
+        log.info("get ${entityName} Id:{}", id);
         return RO.build(RO.RC_SUCCESS, "成功", ${entityName}Service.findById(id));
     }
 
