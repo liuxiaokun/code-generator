@@ -2,3 +2,5 @@ path:
   bin: /opt/utils/bin/
   archetype: /opt/utils/archetype/
   template: /opt/utils/template/
+server:
+  port: 9002
