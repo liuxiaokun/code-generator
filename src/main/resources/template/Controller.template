@@ -99,7 +99,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @ApiImplicitParam(name = "id", value = "主键ID", dataType = "Long", paramType = "path", required = true)
     @PatchMapping("/{id}")
     public Object updatex(@PathVariable("id") Long id, HttpServletRequest request, @RequestBody Map<String, Object> params) {
-        log.info("Patch modify {EntityName} Id:{}", id);
+        log.info("Patch modify ${EntityName} Id:{}", id);
         params.put("modified_by", getUserId(request));
         params.put("modified_date", System.currentTimeMillis());
 
