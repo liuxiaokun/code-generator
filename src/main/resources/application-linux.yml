@@ -1,6 +1,6 @@
 path:
-  bin: /opt/utils/bin/
-  archetype: /opt/utils/archetype/
-  template: /opt/utils/template/
+  bin: /home/fred/utils/bin/
+  archetype: /home/fred/utils/archetype/
+  template: /home/fred/utils/template/
 server:
   port: 9002
