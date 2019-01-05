@@ -59,6 +59,7 @@ public class CodeGenUtil {
             commonData.put("project", project);
             commonData.put("module", module);
             commonData.put("EntityName", entityNameUpper);
+            commonData.put("entityName", entityNameFirstLower);
             commonData.put("author", AUTHOR);
             commonData.put("version", VERSION);
             commonData.put("date", new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
@@ -92,7 +93,6 @@ public class CodeGenUtil {
             FreemarkerUtil.genFile("BaseServiceImpl.template", ClassType.BASE_SERVICE_IMPL, commonData);
 
             //生成Controller
-            commonData.put("entityName", entityNameFirstLower);
             commonData.put("ControllerMapping", NameUtil.genControllerRequestMappingPath(table.getName()));
             FreemarkerUtil.genFile("Controller.template", ClassType.CONTROLLER, commonData);
 
