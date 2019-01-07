@@ -1,10 +1,9 @@
 package com.cloudoer.${project}.${module}.controller;
 
-import com.cloudoer.${project}.${module}.controller.BaseController;
 import com.cloudoer.${project}.${module}.exception.BizException;
-import com.cloudoer.${project}.${module}.model.dto.${EntityName}DTO;
-import com.cloudoer.${project}.${module}.model.entity.${EntityName};
-import com.cloudoer.${project}.${module}.service.${EntityName}Service;
+import com.cloudoer.${project}.${module}.model.dto.LikeDTO;
+import com.cloudoer.${project}.${module}.model.entity.Like;
+import com.cloudoer.${project}.${module}.service.LikeService;
 import com.cloudoer.${project}.${module}.utils.BeanUtil;
 import com.cloudoer.framework.domain.PagingContext;
 import com.cloudoer.framework.domain.SortingContext;
@@ -49,10 +48,10 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         log.info("list:{}", ${entityName}DTO);
 
         Map<String, Object> params = getConditionsMap(request);
-        List<${EntityName}> list = new ArrayList<>();
+        List<${EntityName}DTO> list = new ArrayList<>();
+        int total = ${entityName}Service.count(params);
         PagingContext pc = getPagingContext(request, total);
         Vector<SortingContext> scs = getSortingContext(request);
-        int total = ${entityName}Service.count(params);
         if (total > 0) {
             list = ${entityName}Service.find(params, scs, pc);
         }
@@ -64,7 +63,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @GetMapping("/{id}")
     public Object view(@PathVariable("id") Long id) {
         log.info("get ${entityName} Id:{}", id);
-        return RO.build(RO.RC_SUCCESS, "成功", ${entityName}Service.findById(id));
+        return RO.build(RO.RC_SUCCESS, "成功", ${entityName}Service.find${EntityName}ById(id));
     }
 
     @ApiOperation(value = "新增${EntityName}", notes = "新增一条${EntityName}记录")
@@ -75,7 +74,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         ${EntityName} source${EntityName} = new ${EntityName}();
         try {
             ${EntityName} ${entityName} = BeanUtil.copyProperties(${entityName}DTO, source${EntityName});
-            ${entityName}Service.save(this.packAddBaseProps(${entityName}, request));
+            ${entityName}Service.save${EntityName}(this.packAddBaseProps(${entityName}, request));
         } catch (BizException e) {
             log.error("add ${entityName} failed,  ${entityName}DTO: {}, error message:{}", ${entityName}DTO, e.getMessage());
             return RO.build(RO.RC_FAIL, "失败", e.getMessage());
@@ -91,7 +90,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
         ${EntityName} ${entityName} = new ${EntityName}();
         ${entityName}.setId(id);
-        ${entityName}Service.update(this.packModifyBaseProps(BeanUtil.copyProperties(${entityName}DTO, ${entityName}), request));
+        ${entityName}Service.update${EntityName}(this.packModifyBaseProps(BeanUtil.copyProperties(${entityName}DTO, ${entityName}), request));
         return RO.ok();
     }
 
@@ -105,7 +104,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
         Map<String, Object> conditions = new HashMap<>(1);
         conditions.put("id", id);
-        ${entityName}Service.updatex(params, conditions);
+        ${entityName}Service.update${EntityName}Selective(params, conditions);
         return RO.ok();
     }
 
@@ -116,7 +115,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         log.info("delete ${entityName}, id:{}", id);
 
         try {
-            ${entityName}Service.delete(id, this.getUserId(request));
+            ${entityName}Service.logicDelete${EntityName}(id, this.getUserId(request));
         } catch (BizException e) {
             log.error("delete failed, ${entityName} id: {}, error message:{}", id, e.getMessage());
             return RO.build(RO.RC_FAIL, "失败", e.getMessage());
