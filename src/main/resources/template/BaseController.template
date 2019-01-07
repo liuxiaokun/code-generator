@@ -26,12 +26,16 @@ public class BaseController<T extends BaseEntity> {
 
     private static final Pattern SC_EXTRACTION = Pattern.compile("(?<field>[0-9a-zA-z]+)\\((?<sort>[0-9a-zA-z]+)\\)", 2);
     private static final int MAX_PAGE_SIZE = 1000;
+    private static final String SEPARATOR = ",";
 
     protected T packAddBaseProps(T base, HttpServletRequest request) {
         long now = System.currentTimeMillis();
+        Long currentLoginId = getUserId(request);
         base.setId(AppContext.IdGen.nextId());
-        base.setCreatedBy(getUserId(request));
+        base.setCreatedBy(currentLoginId);
         base.setCreatedDate(now);
+        base.setModifiedBy(currentLoginId);
+        base.setModifiedDate(now);
         base.setStatus(1);
 
         return base;

@@ -1,9 +1,22 @@
 package com.cloudoer.${project}.${module}.service.impl;
 
-import com.cloudoer.${project}.${module}.service.impl.BaseServiceImpl;
-import com.cloudoer.${project}.${module}.model.entity.${EntityName};
-import com.cloudoer.${project}.${module}.service.${EntityName}Service;
+import com.cloudoer.${project}.${module}.dao.BaseDAO;
+import com.cloudoer.${project}.${module}.exception.BizException;
+import com.cloudoer.${project}.${module}.model.dto.LikeDTO;
+import com.cloudoer.${project}.${module}.model.entity.Like;
+import com.cloudoer.${project}.${module}.service.LikeService;
+import com.cloudoer.framework.domain.PagingContext;
+import com.cloudoer.framework.domain.SortingContext;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author ${author}
@@ -11,5 +24,154 @@ import org.springframework.stereotype.Service;
  * @since ${date}
  */
 @Service
-public class ${EntityName}ServiceImpl extends BaseServiceImpl<${EntityName}> implements ${EntityName}Service {
+@Slf4j
+public class ${EntityName}ServiceImpl implements ${EntityName}Service {
+
+    @Autowired
+    private BaseDAO<${EntityName}> ${entityName}DAO;
+
+    @Override
+    public void save${EntityName}(@NonNull ${EntityName} ${entityName}) throws BizException {
+        log.info("save ${EntityName}:{}", ${entityName});
+        if (${entityName}DAO.insert(${entityName}) != 1) {
+            log.error("insert error, data:{}", ${entityName});
+            throw new BizException("Insert ${EntityName} Error!");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void save${EntityName}List(@NonNull List<${EntityName}> ${entityName}List) throws BizException {
+
+        if (${entityName}List.size() == 0) {
+            throw new BizException("参数长度不能为0");
+        }
+        int rows = ${entityName}DAO.insertList(${entityName}List);
+
+        if (rows != ${entityName}List.size()) {
+            log.error("数据库实际插入成功数({})与给定的({})不一致", rows, ${entityName}List.size());
+            throw new BizException("批量保存异常");
+        }
+    }
+
+    @Override
+    public void update${EntityName}(@NonNull ${EntityName} ${entityName}) {
+        log.info("full update ${EntityName}:{}", ${entityName});
+        ${entityName}DAO.update(${entityName});
+    }
+
+    @Override
+    public void update${EntityName}Selective(@NonNull Map<String, Object> dataMap, @NonNull Map<String, Object> conditionMap) {
+        log.info("part update dataMap:{}, conditionMap:{}", dataMap, conditionMap);
+        Map<String, Object> params = new HashMap<>(2);
+        params.put("datas", dataMap);
+        params.put("conditions", conditionMap);
+        ${entityName}DAO.updatex(params);
+    }
+
+    @Override
+    public void logicDelete${EntityName}(@NonNull Long id, @NonNull Long userId) throws BizException {
+        log.info("逻辑删除，数据id:{}, 用户id:{}", id, userId);
+        Map<String, Object> params = new HashMap<>(3);
+        params.put("id", id);
+        params.put("modifiedBy", userId);
+        params.put("modifiedDate", System.currentTimeMillis());
+        int rows = ${entityName}DAO.delete(params);
+
+        if (rows != 1) {
+            log.error("逻辑删除异常, rows:{}", rows);
+            throw new BizException("删除异常.");
+        }
+    }
+
+    @Override
+    public void delete${EntityName}(@NonNull Long id) throws BizException {
+        log.info("物理删除, id:{}", id);
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("id", id);
+        int rows = ${entityName}DAO.pdelete(params);
+
+        if (rows != 1) {
+            log.error("删除异常, 实际删除了{}条数据", rows);
+            throw new BizException("删除失败");
+        }
+    }
+
+    @Override
+    public ${EntityName}DTO find${EntityName}ById(@NonNull Long id) {
+        Map<String, Object> params = new HashMap<>(1);
+        params.put("id", id);
+        ${EntityName} ${entityName} = ${entityName}DAO.selectOne(params);
+        ${EntityName}DTO ${entityName}DTO = new ${EntityName}DTO();
+
+        if (null != ${entityName}) {
+            BeanUtils.copyProperties(${entityName}, ${entityName}DTO);
+        }
+        return ${entityName}DTO;
+    }
+
+    @Override
+    public ${EntityName}DTO findOne${EntityName}(Map<String, Object> params) {
+        log.info("find one params:{}": params);
+        if (params.size() > 0) {
+            params = params.entrySet().stream().filter(entry -> (StringUtils.isNotEmpty(entry.getKey()) && null != entry.getValue()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+        ${EntityName} ${entityName} = ${entityName}DAO.selectOne(params);
+        ${EntityName}DTO ${entityName}DTO = new ${EntityName}DTO();
+        if (null != ${entityName}) {
+            BeanUtils.copyProperties(${entityName}, ${entityName}DTO);
+        }
+        return ${entityName}DTO;
+    }
+
+    @Override
+    public List<${EntityName}DTO> find(Map<String, Object> params,
+        Vector<SortingContext> scs, PagingContext pc) {
+
+        if (params.size() > 0) {
+            params = params.entrySet().stream().filter(entry ->
+                (StringUtils.isNotEmpty(entry.getKey()) && null != entry.getValue()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+        params.put("pc", pc);
+        params.put("scs", scs);
+        List<${EntityName}> ${entityName}List = ${entityName}DAO.select(params);
+        List<${EntityName}DTO> resultList = new ArrayList<>();
+        ${entityName}List.forEach(tem -> {
+            ${EntityName}DTO ${entityName}DTO = new ${EntityName}DTO();
+            BeanUtils.copyProperties(tem, ${entityName}DTO);
+            resultList.add(${entityName}DTO);
+        });
+
+        return resultList;
+    }
+
+    @Override
+    public List<Map> findMap(Map<String, Object> params, Vector<SortingContext> scs,
+                          PagingContext pc, String... columns) throws BizException {
+        if (columns.length == 0) {
+            throw new BizException("columns长度不能为0");
+        }
+        if (params.size() > 0) {
+            params = params.entrySet().stream().filter(entry ->
+                    (StringUtils.isNotEmpty(entry.getKey()) && null != entry.getValue()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+        params.put("pc", pc);
+        params.put("scs", scs);
+        params.put("columns", columns);
+        return ${entityName}DAO.selectMap(params);
+    }
+
+    @Override
+    public int count(Map<String, Object> params) {
+
+        if (params.size() > 0) {
+            params = params.entrySet().stream().filter(entry ->
+                    (StringUtils.isNotEmpty(entry.getKey()) && null != entry.getValue()))
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        }
+        return ${entityName}DAO.count(params);
+    }
 }

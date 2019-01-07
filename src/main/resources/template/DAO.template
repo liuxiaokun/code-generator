@@ -1,6 +1,5 @@
 package com.cloudoer.${project}.${module}.dao;
 
-import com.cloudoer.${project}.${module}.dao.BaseDAO;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 import org.apache.ibatis.annotations.Mapper;
 
