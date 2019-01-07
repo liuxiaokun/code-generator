@@ -57,9 +57,9 @@ public enum ClassType {
     MAPPER("mapper"),
 
     /**
-     * BaseUtil.java类
+     * BeanUtil.java类
      */
-    BEAN_UTIL("base_util"),
+    BEAN_UTIL("bean_util"),
 
     /**
      * BizException.java类

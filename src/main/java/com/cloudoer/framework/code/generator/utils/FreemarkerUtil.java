@@ -200,7 +200,7 @@ public class FreemarkerUtil {
 
             case BEAN_UTIL:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
-                        + "/utils/" + "BaseUtil.java";
+                        + "/utils/" + "BeanUtil.java";
                 break;
 
             case BIZ_EXCEPTION:
