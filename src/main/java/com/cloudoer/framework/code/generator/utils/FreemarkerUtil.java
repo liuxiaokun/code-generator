@@ -218,6 +218,10 @@ public class FreemarkerUtil {
                         + "/model/entity/" + "BaseEntity.java";
                 break;
 
+            case YML:
+                genFilePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/resources/" + "application.yml";
+                break;
+
             case MAPPER:
                 genFilePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/resources/mapper/"
                         + entityName + "Mapper.xml";

@@ -74,7 +74,12 @@ public enum ClassType {
     /**
      * xxxDTO.java类
      */
-    DTO("dto");
+    DTO("dto"),
+
+    /**
+     * application.yml类
+     */
+    YML("yml");
 
     private String type;
 

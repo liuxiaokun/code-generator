@@ -31,6 +31,11 @@ public class CodeGenUtil {
 
         String project = downloadDTO.getProjectName();
         String module = downloadDTO.getModuleName();
+        DATABASE_NAME = downloadDTO.getDatabase();
+        HOST = downloadDTO.getHost();
+        PORT = downloadDTO.getPort();
+        USER_NAME = downloadDTO.getUsername();
+        PASSWORD = downloadDTO.getPassword();
         List<String> needGenTables = downloadDTO.getTables();
         List<Table> tables = MysqlHelper.getTables(downloadDTO);
 
@@ -95,6 +100,13 @@ public class CodeGenUtil {
             //生成Controller
             commonData.put("ControllerMapping", NameUtil.genControllerRequestMappingPath(table.getName()));
             FreemarkerUtil.genFile("Controller.template", ClassType.CONTROLLER, commonData);
+            //生成application.yml文件
+            commonData.put("databaseHost", HOST);
+            commonData.put("databasePort", PORT);
+            commonData.put("databaseName", DATABASE_NAME);
+            commonData.put("databaseUsername", USER_NAME);
+            commonData.put("databasePassword", PASSWORD);
+            FreemarkerUtil.genFile("application.yml.template", ClassType.YML, commonData);
 
             //生成Mapper文件
             commonData.put("table", table.getName());

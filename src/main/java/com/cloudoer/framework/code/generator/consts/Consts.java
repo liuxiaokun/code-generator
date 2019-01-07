@@ -17,4 +17,10 @@ public class Consts {
     public static String AUTHOR = "cobot";
     public static String VERSION = "0.0.1";
 
+    public static String DATABASE_NAME;
+    public static String HOST;
+    public static String PORT;
+    public static String USER_NAME;
+    public static String PASSWORD;
+
 }
