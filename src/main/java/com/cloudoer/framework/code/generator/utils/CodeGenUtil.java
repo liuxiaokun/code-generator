@@ -93,9 +93,9 @@ public class CodeGenUtil {
             //生成BizException
             FreemarkerUtil.genFile("BizException.template", ClassType.BIZ_EXCEPTION, commonData);
             //生成BaseService
-            FreemarkerUtil.genFile("BaseService.template", ClassType.BASE_SERVICE, commonData);
+            //FreemarkerUtil.genFile("BaseService.template", ClassType.BASE_SERVICE, commonData);
             //生成BaseServiceImpl
-            FreemarkerUtil.genFile("BaseServiceImpl.template", ClassType.BASE_SERVICE_IMPL, commonData);
+            //FreemarkerUtil.genFile("BaseServiceImpl.template", ClassType.BASE_SERVICE_IMPL, commonData);
 
             //生成Controller
             commonData.put("ControllerMapping", NameUtil.genControllerRequestMappingPath(table.getName()));
