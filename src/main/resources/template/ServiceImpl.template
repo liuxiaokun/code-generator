@@ -1,6 +1,6 @@
 package com.cloudoer.${project}.${module}.service.impl;
 
-import com.cloudoer.${project}.core.dao.BaseDAO;
+import com.cloudoer.${project}.common.dao.${EntityName}DAO;
 import com.cloudoer.${project}.core.exception.BizException;
 import com.cloudoer.${project}.${module}.model.dto.${EntityName}DTO;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
@@ -27,10 +27,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ${EntityName}ServiceImpl implements ${EntityName}Service {
 
-    private final BaseDAO<${EntityName}> ${entityName}DAO;
+    private final ${EntityName}DAO ${entityName}DAO;
 
     @Autowired
-    public ${EntityName}ServiceImpl(BaseDAO<${EntityName}> ${entityName}DAO) {
+    public ${EntityName}ServiceImpl(${EntityName}DAO ${entityName}DAO) {
         this.${entityName}DAO = ${entityName}DAO;
     }
 
