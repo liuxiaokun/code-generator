@@ -1,5 +1,6 @@
 package com.cloudoer.${project}.${module}.model.entity;
 
+import com.cloudoer.${project}.core.model.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

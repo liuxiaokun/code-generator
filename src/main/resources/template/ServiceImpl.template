@@ -1,7 +1,7 @@
 package com.cloudoer.${project}.${module}.service.impl;
 
-import com.cloudoer.${project}.${module}.dao.BaseDAO;
-import com.cloudoer.${project}.${module}.exception.BizException;
+import com.cloudoer.${project}.core.dao.BaseDAO;
+import com.cloudoer.${project}.core.exception.BizException;
 import com.cloudoer.${project}.${module}.model.dto.${EntityName}DTO;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 import com.cloudoer.${project}.${module}.service.${EntityName}Service;
@@ -30,7 +30,7 @@ public class ${EntityName}ServiceImpl implements ${EntityName}Service {
     private final BaseDAO<${EntityName}> ${entityName}DAO;
 
     @Autowired
-    public FeedServiceImpl(BaseDAO<${EntityName}> ${entityName}DAO) {
+    public ${EntityName}ServiceImpl(BaseDAO<${EntityName}> ${entityName}DAO) {
         this.${entityName}DAO = ${entityName}DAO;
     }
 

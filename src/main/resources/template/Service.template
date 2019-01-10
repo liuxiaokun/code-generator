@@ -1,6 +1,6 @@
 package com.cloudoer.${project}.${module}.service;
 
-import com.cloudoer.${project}.${module}.exception.BizException;
+import com.cloudoer.${project}.core.exception.BizException;
 import com.cloudoer.${project}.${module}.model.dto.${EntityName}DTO;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
 import com.cloudoer.framework.domain.PagingContext;
