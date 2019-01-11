@@ -185,7 +185,7 @@ public class FreemarkerUtil {
 
             case BASE_DTO:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
-                        + "/util/" + "BaseDTO.java";
+                        + "/model/dto/" + "BaseDTO.java";
                 break;
 
             case BASE_SERVICE_IMPL:
