@@ -188,9 +188,9 @@ public class FreemarkerUtil {
                         + "/model/dto/" + "BaseDTO.java";
                 break;
 
-            case BASE_SERVICE_IMPL:
+            case LONG_DATE_SERIALIZER:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
-                        + "/service/impl/" + "BaseServiceImpl.java";
+                        + "/utils/" + "LongDateSerializer.java";
                 break;
 
             case BASE_DAO:

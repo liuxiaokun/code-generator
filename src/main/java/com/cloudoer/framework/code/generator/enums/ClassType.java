@@ -42,9 +42,9 @@ public enum ClassType {
     BASE_DTO("base_dto"),
 
     /**
-     * BaseServiceImpl.java类
+     * LongDateSerializer.java类
      */
-    BASE_SERVICE_IMPL("base_service_impl"),
+    LONG_DATE_SERIALIZER("long_date_serializer"),
 
     /**
      * BaseDAO.java类
