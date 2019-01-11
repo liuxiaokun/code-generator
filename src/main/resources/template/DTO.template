@@ -1,11 +1,11 @@
 package com.cloudoer.${project}.${module}.model.dto;
 
+import com.cloudoer.${project}.core.model.dto.BaseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -15,8 +15,10 @@ import java.util.Date;
  */
 @ApiModel("${tableComment}")
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ${EntityName}DTO implements Serializable {
+public class ${EntityName}DTO extends BaseDTO {
 
     ${fields}
 }
