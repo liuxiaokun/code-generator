@@ -1,5 +1,6 @@
 package com.cloudoer.${project}.${module}.controller;
 
+import com.cloudoer.${project}.core.controller.BaseController;
 import com.cloudoer.${project}.core.exception.BizException;
 import com.cloudoer.${project}.${module}.model.dto.${EntityName}DTO;
 import com.cloudoer.${project}.${module}.model.entity.${EntityName};
