@@ -92,8 +92,8 @@ public class CodeGenUtil {
             FreemarkerUtil.genFile("BeanUtil.template", ClassType.BEAN_UTIL, commonData);
             //生成BizException
             FreemarkerUtil.genFile("BizException.template", ClassType.BIZ_EXCEPTION, commonData);
-            //生成BaseService
-            //FreemarkerUtil.genFile("BaseService.template", ClassType.BASE_SERVICE, commonData);
+            //生成BaseDTO
+            FreemarkerUtil.genFile("BaseDTO.template", ClassType.BASE_DTO, commonData);
             //生成BaseServiceImpl
             //FreemarkerUtil.genFile("BaseServiceImpl.template", ClassType.BASE_SERVICE_IMPL, commonData);
 

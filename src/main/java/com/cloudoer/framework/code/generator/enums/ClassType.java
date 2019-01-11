@@ -37,9 +37,9 @@ public enum ClassType {
     BASE_CONTROLLER("base_controller"),
 
     /**
-     * BaseService.java类
+     * BaseDTO.java类
      */
-    BASE_SERVICE("base_service"),
+    BASE_DTO("base_dto"),
 
     /**
      * BaseServiceImpl.java类

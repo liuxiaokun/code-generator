@@ -25,9 +25,9 @@ import static freemarker.template.Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENT
 public class FreemarkerUtil {
 
     public static final String QUICK_INDENT_1 = "    ";
-    public static final String QUICK_INDENT_2 = "        ";
-    public static final String QUICK_INDENT_3 = "            ";
-    public static final String QUICK_INDENT_4 = "                ";
+    private static final String QUICK_INDENT_2 = "        ";
+    private static final String QUICK_INDENT_3 = "            ";
+    private static final String QUICK_INDENT_4 = "                ";
 
     public static void main(String[] args) {
         Map<String, String> data = new HashMap<>(3);
@@ -183,9 +183,9 @@ public class FreemarkerUtil {
                         + "/controller/" + "BaseController.java";
                 break;
 
-            case BASE_SERVICE:
+            case BASE_DTO:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
-                        + "/service/" + "BaseService.java";
+                        + "/util/" + "BaseDTO.java";
                 break;
 
             case BASE_SERVICE_IMPL:
