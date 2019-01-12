@@ -1,6 +1,5 @@
 package com.cloudoer.${project}.${module}.controller;
 
-import com.cloudoer.${project}.core.controller.BaseController;
 import com.cloudoer.${project}.${module}.model.entity.BaseEntity;
 import com.cloudoer.framework.context.AppContext;
 import com.cloudoer.framework.domain.PagingContext;
