@@ -97,6 +97,9 @@ public class CodeGenUtil {
             //生成LongDateSerializer
             FreemarkerUtil.genFile("LongDateSerializer.template", ClassType.LONG_DATE_SERIALIZER, commonData);
 
+            //生成api.js
+            FreemarkerUtil.genFile("api.js.template", ClassType.API_JS, commonData);
+
             //生成Controller
             commonData.put("ControllerMapping", NameUtil.genControllerRequestMappingPath(table.getName()));
             FreemarkerUtil.genFile("Controller.template", ClassType.CONTROLLER, commonData);

@@ -1,5 +1,6 @@
 package com.cloudoer.framework.code.generator.utils;
 
+import com.cloudoer.framework.code.generator.consts.Consts;
 import com.cloudoer.framework.code.generator.db.Column;
 import com.cloudoer.framework.code.generator.db.Table;
 import com.cloudoer.framework.code.generator.enums.ClassType;
@@ -216,6 +217,11 @@ public class FreemarkerUtil {
             case BASE_ENTITY:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
                         + "/model/entity/" + "BaseEntity.java";
+                break;
+
+            case API_JS:
+                genFilePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/vue/"
+                        + Consts.MODULE_NAME + "-API-" + entityName + ".js";
                 break;
 
             case YML:

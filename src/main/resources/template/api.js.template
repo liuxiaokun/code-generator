@@ -1,0 +1,23 @@
+import * as ax from '@/libs/http'
+
+let url = ax.url + '/${module}'
+
+export const get${EntityName} = (params) => {
+  params.scs = 'created_date(desc)'
+  return ax.g(url + '/${entityName}', params)
+}
+export const get${EntityName} = (params) => {
+  return ax.g(url + '/${entityName}/' + params.id, params)
+}
+export const create${EntityName} = (params) => {
+  return ax.p(url + '/${entityName}', params)
+}
+export const update${EntityName} = (params) => {
+  return ax.u(url + '/${entityName}/' + params.id, params)
+}
+export const updatex${EntityName} = (params) => {
+  return ax.pa(url + '/${entityName}/' + params.id, params)
+}
+export const del${EntityName} = (params) => {
+  return ax.d(url + '/${entityName}/' + params.id, {data:params})
+}

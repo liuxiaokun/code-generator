@@ -47,6 +47,11 @@ public enum ClassType {
     LONG_DATE_SERIALIZER("long_date_serializer"),
 
     /**
+     * api.js类
+     */
+    API_JS("api_js"),
+
+    /**
      * BaseDAO.java类
      */
     BASE_DAO("base_dao"),
