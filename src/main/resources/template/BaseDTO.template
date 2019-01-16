@@ -10,7 +10,7 @@ import lombok.Data;
  * @since ${date}
  */
 @Data
-public class BaseDTO  {
+public class BaseDTO {
 
     /**
      * 数据库表的主键, 生成策略基于雪花算法
