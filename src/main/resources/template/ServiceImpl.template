@@ -181,7 +181,22 @@ public class ${EntityName}ServiceImpl implements ${EntityName}Service {
 
     @Override
     public Map<String, Integer> groupCount(String group, Map<String, Object> conditions) {
-        return ${entityName}DAO.groupCount(group, conditions);
+        if (conditions == null) {
+            conditions = new HashMap<>(1);
+        }
+        conditions.put("group", group);
+        List<Map<String, Object>> maps = ${entityName}DAO.groupCount(conditions);
+        Map<String, Integer> map = new LinkedHashMap<>();
+        for (Map<String, Object> m : maps) {
+            String key = m.get("group") != null ? m.get("group").toString() : "group";
+            Object value = m.get("count");
+            int count = 0;
+            if (StringUtils.isNotBlank(value.toString())) {
+                count = Integer.parseInt(value.toString());
+            }
+            map.put(key, count);
+        }
+        return map;
     }
 
     @Override
@@ -195,6 +210,22 @@ public class ${EntityName}ServiceImpl implements ${EntityName}Service {
 
     @Override
     public Map<String, Double> groupSum(String group, String sumField, Map<String, Object> conditions) {
-        return ${entityName}DAO.groupSum(group, sumField, conditions);
+        if (conditions == null) {
+            conditions = new HashMap<>(2);
+        }
+        conditions.put("group", group);
+        conditions.put("sumfield", sumField);
+        List<Map<String, Object>> maps = ${entityName}DAO.groupSum(conditions);
+        Map<String, Double> map = new LinkedHashMap<String, Double>();
+        for (Map<String, Object> m : maps) {
+            String key = m.get("group") != null ? m.get("group").toString() : "group";
+            Object value = m.get("sum");
+            double sum = 0d;
+            if (StringUtils.isNotBlank(value.toString())) {
+                sum = Double.parseDouble(value.toString());
+            }
+            map.put(key, sum);
+        }
+        return map;
     }
 }

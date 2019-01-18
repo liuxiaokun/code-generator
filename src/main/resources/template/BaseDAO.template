@@ -100,29 +100,25 @@ public interface BaseDAO<T> {
     /**
      * 根据给定字段以及查询条件进行分组查询，并统计id的count。
      *
-     * @param group      分组的字段。
-     * @param conditions 查询的where条件。
-     * @return 查询结果 key为查询字段的值，value为查询字段的统计条数。
+     * @param conditions 查询的条件。
+     * @return 查询结果。
      */
-    Map<String, Integer> groupCount(String group, Map<String, Object> conditions);
+    List<Map<String, Object>> groupCount(Map<String, Object> conditions);
 
     /**
      * 根据给定字段查询统计字段的sum结果。
      *
-     * @param sumField   sumField 统计的字段名。
-     * @param conditions 查询的where条件。
+     * @param conditions 查询的条件。
      * @return 返回sum计算的结果值。
      */
-    Double sum(String sumField, Map<String, Object> conditions);
+    Double sum(Map<String, Object> conditions);
 
     /**
      * 根据给定字段以及查询条件进行分组查询，并sum统计Field。
      *
-     * @param group      分组的字段。
-     * @param sumField   sumField 统计的字段名。
-     * @param conditions 查询的where条件。
-     * @return 查询结果 key为查询字段的值，value为查询字段的求和。
+     * @param conditions 查询的条件。
+     * @return 查询结果。
      */
-    Map<String, Double> groupSum(String group, String sumField, Map<String, Object> conditions);
+    List<Map<String, Object>> groupSum(Map<String, Object> conditions);
 
 }
