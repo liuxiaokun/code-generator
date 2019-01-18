@@ -226,4 +226,71 @@
         </if>
     </select>
 
+    <!--统计相关查询-->
+    <select id="groupCount" parameterType="Map" resultType="Map">
+        <![CDATA[
+            SELECT ${group} AS `group`, COUNT(DISTINCT id) AS `count` FROM  {table} 
+        ]]>
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
+            <choose>
+                <when test="status !=null ">status = #{status}</when>
+                <otherwise><![CDATA[status > 0]]></otherwise>
+            </choose>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            {conditions}<if test="start != null  and  end != null">
+                AND `created_date` BETWEEN  #{start} AND #{end}
+            </if>
+            <if test="date != null">
+                AND `created_date` LIKE CONCAT(#{date},'%')
+            </if>
+        </trim>
+        GROUP BY `group` 
+        ORDER BY `group` ASC
+    </select>
+    
+    <select id="sum" parameterType="Map" resultType="Double">
+        <![CDATA[
+            SELECT IFNULL(SUM(${sumfield}),0) AS `sum` FROM  {table}  
+        ]]>
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
+            <choose>
+                <when test="status !=null ">status = #{status}</when>
+                <otherwise><![CDATA[status > 0]]></otherwise>
+            </choose>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            {conditions}<if test="start != null  and  end != null">
+                AND `created_date` BETWEEN  #{start} AND #{end}
+            </if>
+            <if test="date != null">
+                AND `created_date` LIKE CONCAT(#{date},'%')
+            </if>
+        </trim>
+    </select>
+    
+    <select id="groupSum" parameterType="Map" resultType="Map">
+        <![CDATA[
+            SELECT ${group} AS `group`, IFNULL(SUM(${sumfield}),0) AS `sum`  FROM  {table}  
+        ]]>
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
+            <choose>
+                <when test="status !=null ">status = #{status}</when>
+                <otherwise><![CDATA[status > 0]]></otherwise>
+            </choose>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            {conditions}<if test="start != null  and  end != null">
+                AND `created_date` BETWEEN  #{start} AND #{end}
+            </if>
+            <if test="date != null">
+                AND `created_date` LIKE CONCAT(#{date},'%')
+            </if>
+        </trim>
+        GROUP BY `group` 
+        ORDER BY `group` ASC
+    </select>
 </mapper>
