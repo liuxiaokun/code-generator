@@ -109,7 +109,7 @@ public interface BaseDAO<T> {
     /**
      * 根据给定字段查询统计字段的sum结果。
      *
-     * @param sumField sumField 统计的字段名。
+     * @param sumField   sumField 统计的字段名。
      * @param conditions 查询的where条件。
      * @return 返回sum计算的结果值。
      */
