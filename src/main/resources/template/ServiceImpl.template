@@ -186,7 +186,11 @@ public class ${EntityName}ServiceImpl implements ${EntityName}Service {
 
     @Override
     public Double sum(String sumField, Map<String, Object> conditions) {
-        return ${entityName}DAO.sum(sumField, conditions);
+        if (conditions == null) {
+            conditions = new HashMap<>(2);
+        }
+        conditions.put("sumfield", sumField);
+        return feedDAO.sum(conditions);
     }
 
     @Override
