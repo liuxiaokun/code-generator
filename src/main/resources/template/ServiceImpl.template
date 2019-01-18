@@ -178,4 +178,19 @@ public class ${EntityName}ServiceImpl implements ${EntityName}Service {
         }
         return ${entityName}DAO.count(params);
     }
+
+    @Override
+    public Map<String, Integer> groupCount(String group, Map<String, Object> conditions) {
+        return ${entityName}DAO.groupCount(group, conditions);
+    }
+
+    @Override
+    public Double sum(String sumField, Map<String, Object> conditions) {
+        return ${entityName}DAO.sum(sumField, conditions);
+    }
+
+    @Override
+    public Map<String, Double> groupSum(String group, String sumField, Map<String, Object> conditions) {
+        return ${entityName}DAO.groupSum(group, sumField, conditions);
+    }
 }
