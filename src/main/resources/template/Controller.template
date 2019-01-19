@@ -124,4 +124,33 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         return RO.ok();
     }
 
+    @ApiOperation(value = "计算指定字段的和", notes = "用sum函数计算符合条件记录的指定字段的和。")
+    @ApiImplicitParam(name = "sumField", value = "求和的字段", dataType = "String", paramType = "path", required = true)
+    @GetMapping("/sum/{sumField}")
+    public Object sum(@PathVariable String sumField, HttpServletRequest request) {
+        Map<String, Object> params = getConditionsMap(request);
+        Double sum = ${entityName}Service.sum(sumField, params);
+        return RO.build(RO.RC_SUCCESS, "操作成功", sum);
+    }
+
+    @ApiOperation(value = "按照指定字段分组并计算指定字段的和", notes = "根据指定的字段分组，然后用sum函数计算符合条件记录指定字段的和。")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sumField", value = "计算字段", dataType = "String", paramType = "path", required = true),
+            @ApiImplicitParam(name = "groupField", value = "分组字段", dataType = "String", paramType = "path", required = true)
+    })
+    @GetMapping("/group/sum/{groupField}/{sumField}")
+    public Object groupSum(@PathVariable String groupField, @PathVariable String sumField, HttpServletRequest request) {
+        Map<String, Object> params = getConditionsMap(request);
+        Map<String, Double> result = ${entityName}Service.groupSum(groupField, sumField, params);
+        return RO.build(RO.RC_SUCCESS, "操作成功", result);
+    }
+
+    @ApiOperation(value = "按照指定字段分组计算指定字段的数目", notes = "根据指定的字段，用count函数计算符合条件记录字段的数目。")
+    @ApiImplicitParam(name = "groupField", value = "分组的字段", dataType = "String", paramType = "path", required = true)
+    @GetMapping("/group/count/{groupField}")
+    public Object groupCount(@PathVariable String groupField, HttpServletRequest request) {
+        Map<String, Object> params = getConditionsMap(request);
+        Map<String, Integer> result = ${entityName}Service.groupCount(groupField, params);
+        return RO.build(RO.RC_SUCCESS, "操作成功", result);
+    }
 }
