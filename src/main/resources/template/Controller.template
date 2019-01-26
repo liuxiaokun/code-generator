@@ -44,7 +44,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
             @ApiImplicitParam(name = "p", value = "请球的页码", paramType = "query"),
             @ApiImplicitParam(name = "sc", value = "排序字段，格式：scs=name(asc),sc=age(desc),有序", paramType = "query"),
             })
-    @GetMapping()
+    @GetMapping(name = "${module}-${tableComment}管理")
     public Object list(HttpServletRequest request, ${EntityName}DTO ${entityName}DTO) {
         log.info("list:{}", ${entityName}DTO);
 
@@ -61,14 +61,14 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
     @ApiOperation(value = "查询${EntityName}", notes = "根据ID查询${EntityName}")
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", name = "查看")
     public Object view(@PathVariable("id") Long id) {
         log.info("get ${entityName} Id:{}", id);
         return RO.build(RO.RC_SUCCESS, "成功", ${entityName}Service.find${EntityName}ById(id));
     }
 
     @ApiOperation(value = "新增${EntityName}", notes = "新增一条${EntityName}记录")
-    @PostMapping("")
+    @PostMapping(name = "创建")
     public Object create(@RequestBody ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
         log.info("add ${entityName} DTO:{}", ${entityName}DTO);
 
@@ -85,7 +85,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
     @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 修改一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", name = "修改")
     public Object update(@PathVariable("id") Long id, @RequestBody ${EntityName}DTO ${entityName}DTO, HttpServletRequest request) {
         log.info("put modify id:{}, ${entityName} DTO:{}", id, ${entityName}DTO);
 
@@ -97,7 +97,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
     @ApiOperation(value = "修改${EntityName}", notes = "根据ID, 部分修改一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键ID", dataType = "Long", paramType = "path", required = true)
-    @PatchMapping("/{id}")
+    @PatchMapping(value = "/{id}", name = "修改指定项")
     public Object updatex(@PathVariable("id") Long id, HttpServletRequest request, @RequestBody Map<String, Object> params) {
         log.info("Patch modify ${EntityName} Id:{}", id);
         params.put("modified_by", getUserId(request));
@@ -111,7 +111,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
 
     @ApiOperation(value = "删除${EntityName}", notes = "根据ID, 逻辑删除一条${EntityName}记录")
     @ApiImplicitParam(name = "id", value = "主键id", dataType = "Long", paramType = "path", required = true)
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", name = "删除")
     public Object remove(HttpServletRequest request, @PathVariable("id") Long id) {
         log.info("delete ${entityName}, id:{}", id);
 
