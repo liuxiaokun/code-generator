@@ -49,4 +49,9 @@ public class BaseDTO {
      * 示例：1：正常：0：删除 等等
      */
     private Integer status;
+
+    /**
+     * 数据最后编辑人的ip地址。
+     */
+    private String ip;
 }
