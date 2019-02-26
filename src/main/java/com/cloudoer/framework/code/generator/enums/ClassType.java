@@ -32,6 +32,11 @@ public enum ClassType {
     CONTROLLER("controller"),
 
     /**
+     * vue.api.js
+     */
+    VUE_API_JS("vue_api_js"),
+
+    /**
      * BaseController.java类
      */
     BASE_CONTROLLER("base_controller"),
@@ -45,11 +50,6 @@ public enum ClassType {
      * LongDateSerializer.java类
      */
     LONG_DATE_SERIALIZER("long_date_serializer"),
-
-    /**
-     * api.js类
-     */
-    API_JS("api_js"),
 
     /**
      * BaseDAO.java类

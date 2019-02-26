@@ -179,6 +179,11 @@ public class FreemarkerUtil {
                         + "/controller/" + entityName + "Controller.java";
                 break;
 
+            case VUE_API_JS:
+                genFilePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/vue/"
+                        + Consts.MODULE_NAME + "-API-" + entityName + ".js";
+                break;
+
             case BASE_CONTROLLER:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
                         + "/controller/" + "BaseController.java";
@@ -217,11 +222,6 @@ public class FreemarkerUtil {
             case BASE_ENTITY:
                 genFilePath = basePath + PROJECT_NAME + "/" + MODULE_NAME
                         + "/model/entity/" + "BaseEntity.java";
-                break;
-
-            case API_JS:
-                genFilePath = BIN_PATH + PROJECT_NAME + "-" + MODULE_NAME + "/src/main/vue/"
-                        + Consts.MODULE_NAME + "-API-" + entityName + ".js";
                 break;
 
             case YML:

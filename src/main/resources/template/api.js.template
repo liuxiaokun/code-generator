@@ -1,23 +1,39 @@
 import * as ax from '@/libs/http'
 
-let url = ax.url + '/${module}'
+export const ${module}Url = ax.url + '/${module}'
+
+export const get${EntityName}List = (params) => {
+  return ax.g(${module}Url + '/${ControllerMapping}', params)
+}
 
 export const get${EntityName} = (params) => {
-  params.scs = 'created_date(desc)'
-  return ax.g(url + '/${entityName}', params)
+  return ax.g(${module}Url + '/${ControllerMapping}/' + params.id, params)
 }
-export const get${EntityName} = (params) => {
-  return ax.g(url + '/${entityName}/' + params.id, params)
-}
+
 export const create${EntityName} = (params) => {
-  return ax.p(url + '/${entityName}', params)
+  return ax.p(${module}Url + '/${ControllerMapping}', params)
 }
+
 export const update${EntityName} = (params) => {
-  return ax.u(url + '/${entityName}/' + params.id, params)
+  return ax.u(${module}Url + '/${ControllerMapping}/' + params.id, params)
 }
+
 export const updatex${EntityName} = (params) => {
-  return ax.pa(url + '/${entityName}/' + params.id, params)
+  return ax.pa(${module}Url + '/${ControllerMapping}/' + params.id, params)
 }
-export const del${EntityName} = (params) => {
-  return ax.d(url + '/${entityName}/' + params.id, {data:params})
+
+export const delete${EntityName} = (params) => {
+  return ax.d(${module}Url + '/${ControllerMapping}/' + params.id, params)
+}
+
+export const sum${EntityName} = (params) => {
+  return ax.g(${module}Url + '/${ControllerMapping}/sum/' + params.sumField, params)
+}
+
+export const sumGroup${EntityName} = (params) => {
+  return ax.g(${module}Url + '/${ControllerMapping}/group/sum/' + params.groupField + '/' + params.sumField, params)
+}
+
+export const sumCount${EntityName} = (params) => {
+  return ax.g(${module}Url + '/${ControllerMapping}/group/count/' + params.groupField, params)
 }
