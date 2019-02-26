@@ -29,7 +29,7 @@ public class BaseEntity {
     private Long createdDate;
 
     /**
-     * 最后修改人ID，对应t_user表的id
+     * 最后修改人ID，对应t_user表的id。
      * 获取示例：<code>BaseController#getUserId(request)</code>
      */
     private Long modifiedBy;
@@ -42,7 +42,12 @@ public class BaseEntity {
 
     /**
      * 此记录的状态，例如逻辑删除
-     * 示例：1：正常：0：删除 等等
+     * 示例：1：正常：0：删除 等等。
      */
     private Integer status;
+
+    /**
+     * 数据最后编辑人的ip地址。
+     */
+    private String ip;
 }
