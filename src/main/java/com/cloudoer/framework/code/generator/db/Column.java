@@ -30,7 +30,7 @@ public class Column {
 
         if ("created_date".equalsIgnoreCase(this.field) || "created_by".equalsIgnoreCase(this.field)
                 || "modified_date".equalsIgnoreCase(this.field) || "modified_by".equalsIgnoreCase(this.field)
-                || "id".equalsIgnoreCase(this.field) || "status".equalsIgnoreCase(this.field)) {
+                || "id".equalsIgnoreCase(this.field) || "status".equalsIgnoreCase(this.field) || "ip".equalsIgnoreCase(this.field)) {
             return "";
         }
         StringBuilder filedSegment = new StringBuilder();
