@@ -54,4 +54,9 @@ public class BaseDTO {
      * 数据最后编辑人的ip地址。
      */
     private String ip;
+
+    /**
+     * 数据完整度
+     */
+    private String integrality;
 }

@@ -55,6 +55,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         Vector<SortingContext> scs = getSortingContext(request);
         if (total > 0) {
             list = ${entityName}Service.find(params, scs, pc);
+            list.forEach(Website::computeIntegrality);
         }
         return RO.build(RO.RC_SUCCESS, "成功", list, pc, scs);
     }
@@ -64,7 +65,11 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @GetMapping(value = "/{id}", name = "查看")
     public Object view(@PathVariable("id") Long id) {
         log.info("get ${entityName} Id:{}", id);
-        return RO.build(RO.RC_SUCCESS, "成功", ${entityName}Service.find${EntityName}ById(id));
+        ${EntityName} ${entityName} = ${entityName}Service.find${EntityName}ById(id);
+        if(null != ${entityName}) {
+            ${entityName}.computeIntegrality();
+        }
+        return RO.build(RO.RC_SUCCESS, "成功", ${entityName});
     }
 
     @ApiOperation(value = "新增${EntityName}", notes = "新增一条${EntityName}记录")
