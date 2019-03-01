@@ -1,7 +1,5 @@
 package com.cloudoer.${project}.${module}.model.entity;
 
-import com.cloudoer.${project}.${module}.config.LongDateSerializer;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -33,7 +31,6 @@ public class BaseEntity implements Serializable{
      * 创建时间，存储时间戳。
      * 获取示例：<code>System.currentTimeMillis()</code>
      */
-    @JsonSerialize(using = LongDateSerializer.class)
     private Long createdDate;
 
     /**
@@ -46,7 +43,6 @@ public class BaseEntity implements Serializable{
      * 最后修改时间，存储时间戳。
      * 获取示例：<code>System.currentTimeMillis()</code>
      */
-    @JsonSerialize(using = LongDateSerializer.class)
     private Long modifiedDate;
 
     /**
