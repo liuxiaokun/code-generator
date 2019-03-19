@@ -1,6 +1,6 @@
 package com.cloudoer.${project}.core.config;
 
-import com.cloudoer.ecos.core.config.LongDateSerializer;
+import com.cloudoer.${project}.core.config.LongDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
