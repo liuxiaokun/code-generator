@@ -55,7 +55,7 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
         Vector<SortingContext> scs = getSortingContext(request);
         if (total > 0) {
             list = ${entityName}Service.find(params, scs, pc);
-            list.forEach(Website::computeIntegrality);
+            list.forEach(${EntityName}DTO::computeIntegrality);
         }
         return RO.build(RO.RC_SUCCESS, "成功", list, pc, scs);
     }
