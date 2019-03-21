@@ -113,6 +113,7 @@ public class CodeGenUtil {
             //生成Mapper文件
             commonData.put("table", table.getName());
             commonData.remove("fields");
+            commonData.remove("date");
             FreemarkerUtil.genMapperFile(commonData, table);
         }
         ZipUtil.toZip(BIN_PATH + project + "-" + module, new FileOutputStream(new File(BIN_PATH + project + "-" + module
