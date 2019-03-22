@@ -65,11 +65,11 @@ public class ${EntityName}Controller extends BaseController<${EntityName}> {
     @GetMapping(value = "/{id}", name = "查看")
     public Object view(@PathVariable("id") Long id) {
         log.info("get ${entityName} Id:{}", id);
-        ${EntityName} ${entityName} = ${entityName}Service.find${EntityName}ById(id);
-        if(null != ${entityName}) {
-            ${entityName}.computeIntegrality();
+        ${EntityName}DTO ${entityName}DTO = ${entityName}Service.find${EntityName}ById(id);
+        if(null != ${entityName}DTO) {
+            ${entityName}DTO.computeIntegrality();
         }
-        return RO.build(RO.RC_SUCCESS, "成功", ${entityName});
+        return RO.build(RO.RC_SUCCESS, "成功", ${entityName}DTO);
     }
 
     @ApiOperation(value = "新增${EntityName}", notes = "新增一条${EntityName}记录")
